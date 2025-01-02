@@ -8,7 +8,7 @@ import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 public class Test {
     public static void main(String[] args) {
         JsScript script = new JsScript("""
-                smartZipFile("./", "penis.zip", ["LICENSE", "README.md", ".idea"]);
+                downloadFromUrl("https://repo.instancify.app/snapshots/com/instancify/scriptify/script-js/1.0.2-SNAPSHOT/script-js-1.0.2-20250102.210939-4.jar", "script-js.jar")
                 """);
 
         StandardFunctionManager functionManager = new StandardFunctionManager();

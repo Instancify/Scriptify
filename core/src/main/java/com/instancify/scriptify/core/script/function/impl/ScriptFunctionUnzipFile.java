@@ -11,12 +11,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
 
 /**
  * Represents a function to unzip archive
  */
-public class ScriptFunctionUnzipFIle implements ScriptFunction {
+public class ScriptFunctionUnzipFile implements ScriptFunction {
 
     @Override
     public String getName() {

@@ -8,7 +8,7 @@ import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 public class Test {
     public static void main(String[] args) {
         JsScript script = new JsScript("""
-                moveFile("LICENSE1", "LICENSE")
+                print(readFile(joinPath("script-js", "src", "main", "java", "com", "instancify", "scriptify", "Test.java")));
                 """);
 
         StandardFunctionManager functionManager = new StandardFunctionManager();

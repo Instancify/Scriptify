@@ -7,6 +7,9 @@ import com.instancify.scriptify.api.script.function.ScriptFunction;
 
 import java.io.File;
 
+/**
+ * Represents a function to move file
+ */
 public class ScriptFunctionMoveFile implements ScriptFunction {
 
     @Override

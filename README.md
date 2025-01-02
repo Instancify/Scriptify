@@ -16,7 +16,7 @@ For adding a library only:
 ```xml
 <dependency>
     <groupId>com.instancify.scriptify</groupId>
-    <artifactId>script-js</artifactId>
+    <artifactId>core</artifactId>
     <version>1.0.1-SNAPSHOT</version>
 </dependency>
 ```
@@ -25,7 +25,7 @@ For adding a library with JS:
 ```xml
 <dependency>
     <groupId>com.instancify.scriptify</groupId>
-    <artifactId>core</artifactId>
+    <artifactId>script-js</artifactId>
     <version>1.0.1-SNAPSHOT</version>
 </dependency>
 ```
@@ -40,10 +40,10 @@ maven {
 
 For adding a library only:
 ```groovy
-implementation "com.instancify.scriptify:script-js:1.0.1-SNAPSHOT"
+implementation "com.instancify.scriptify:core:1.0.1-SNAPSHOT"
 ```
 
 For adding a library with JS:
 ```groovy
-implementation "com.instancify.scriptify:core:1.0.1-SNAPSHOT"
+implementation "com.instancify.scriptify:script-js:1.0.1-SNAPSHOT"
 ```

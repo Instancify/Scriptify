@@ -20,6 +20,8 @@ public class StandardFunctionManager implements ScriptFunctionManager {
         this.register(new ScriptFunctionZipFile());
         this.register(new ScriptFunctionUnzipFile());
         this.register(new ScriptFunctionSmartUnzipFile());
+        this.register(new ScriptFunctionBase64Encode());
+        this.register(new ScriptFunctionBase64Decode());
     }
 
     @Override

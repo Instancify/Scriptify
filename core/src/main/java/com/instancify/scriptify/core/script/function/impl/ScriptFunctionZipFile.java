@@ -24,18 +24,16 @@ public class ScriptFunctionZipFile implements ScriptFunction {
 
     @Override
     public Object invoke(Object[] args) throws ScriptFunctionException {
-        if (!(args.length == 2)) {
+        if (args.length != 2) {
             throw new ScriptFunctionArgsCountException(2, args.length);
         }
-        if (!(args[0] instanceof String)) {
+
+        if (!(args[0] instanceof String filePath)) {
             throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
         }
-        if(!(args[1] instanceof String)) {
+        if (!(args[1] instanceof String compressedFilePath)) {
             throw new ScriptFunctionArgTypeException(String.class, args[1].getClass());
         }
-
-        String filePath = (String) args[0];
-        String compressedFilePath = (String) args[1];
 
         try {
             File fileToZip = new File(filePath);
@@ -54,32 +52,35 @@ public class ScriptFunctionZipFile implements ScriptFunction {
         return null;
     }
 
-    private static void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
+    private void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {
         if (fileToZip.isHidden()) {
             return;
         }
+
         if (fileToZip.isDirectory()) {
-            if (fileName.endsWith("/")) {
-                zipOut.putNextEntry(new ZipEntry(fileName));
-                zipOut.closeEntry();
-            } else {
-                zipOut.putNextEntry(new ZipEntry(fileName + "/"));
-                zipOut.closeEntry();
+            if (!fileName.endsWith("/")) {
+                fileName += "/";
             }
+            zipOut.putNextEntry(new ZipEntry(fileName));
+            zipOut.closeEntry();
+
             File[] children = fileToZip.listFiles();
-            for (File childFile : children) {
-                zipFile(childFile, fileName + "/" + childFile.getName(), zipOut);
+            if (children != null) {
+                for (File childFile : children) {
+                    zipFile(childFile, fileName + childFile.getName(), zipOut);
+                }
             }
-            return;
+        } else {
+            try (FileInputStream fis = new FileInputStream(fileToZip)) {
+                ZipEntry zipEntry = new ZipEntry(fileName);
+                zipOut.putNextEntry(zipEntry);
+
+                byte[] buffer = new byte[1024];
+                int length;
+                while ((length = fis.read(buffer)) >= 0) {
+                    zipOut.write(buffer, 0, length);
+                }
+            }
         }
-        FileInputStream fis = new FileInputStream(fileToZip);
-        ZipEntry zipEntry = new ZipEntry(fileName);
-        zipOut.putNextEntry(zipEntry);
-        byte[] bytes = new byte[1024];
-        int length;
-        while ((length = fis.read(bytes)) >= 0) {
-            zipOut.write(bytes, 0, length);
-        }
-        fis.close();
     }
 }

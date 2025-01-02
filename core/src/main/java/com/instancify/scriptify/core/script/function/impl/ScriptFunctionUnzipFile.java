@@ -24,21 +24,18 @@ public class ScriptFunctionUnzipFile implements ScriptFunction {
 
     @Override
     public Object invoke(Object[] args) throws ScriptFunctionException {
-        if (!(args.length == 2)) {
+        if (args.length != 2) {
             throw new ScriptFunctionArgsCountException(2, args.length);
         }
-        if (!(args[0] instanceof String)) {
+
+        if (!(args[0] instanceof String compressedFilePath)) {
             throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
         }
-        if(!(args[1] instanceof String)) {
+        if (!(args[1] instanceof String decompressedPath)) {
             throw new ScriptFunctionArgTypeException(String.class, args[1].getClass());
         }
 
-        String compressedFilePath = (String) args[0];
-        String decompressedPath = (String) args[1];
-
         try {
-
             File fileCompressed = new File(compressedFilePath);
             File fileDecompressed = new File(decompressedPath);
 
@@ -78,7 +75,7 @@ public class ScriptFunctionUnzipFile implements ScriptFunction {
         return null;
     }
 
-    public static File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
+    private File newFile(File destinationDir, ZipEntry zipEntry) throws IOException {
         File destFile = new File(destinationDir, zipEntry.getName());
 
         String destDirPath = destinationDir.getCanonicalPath();

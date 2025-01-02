@@ -8,4 +8,5 @@ repositories {
 
 dependencies {
     api("org.jetbrains:annotations:26.0.1")
+    api(project(":api"))
 }

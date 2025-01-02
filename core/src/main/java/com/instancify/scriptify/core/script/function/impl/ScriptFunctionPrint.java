@@ -1,4 +1,4 @@
-package com.instancify.scriptify.core;
+package com.instancify.scriptify.core.script.function.impl;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.function.ScriptFunction;

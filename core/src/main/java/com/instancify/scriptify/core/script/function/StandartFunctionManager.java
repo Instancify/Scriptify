@@ -1,8 +1,8 @@
-package com.instancify.scriptify.script;
+package com.instancify.scriptify.core.script.function;
 
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
-import com.instancify.scriptify.core.ScriptFunctionPrint;
+import com.instancify.scriptify.core.script.function.impl.ScriptFunctionPrint;
 
 import java.util.HashMap;
 import java.util.Map;

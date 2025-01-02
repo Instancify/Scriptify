@@ -1,7 +1,7 @@
 package com.instancify.scriptify;
 
 import com.instancify.scriptify.script.JsScript;
-import com.instancify.scriptify.script.StandartFunctionManager;
+import com.instancify.scriptify.core.script.function.StandartFunctionManager;
 
 public class Test {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.instancify.scriptify;
+package com.instancify.scriptify.script;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
@@ -8,6 +8,7 @@ import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.Undefined;
 
 public class JsFunction implements Function {
+
     private final ScriptFunction function;
 
     public JsFunction(final ScriptFunction function) {

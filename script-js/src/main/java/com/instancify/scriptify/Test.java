@@ -8,7 +8,7 @@ import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 public class Test {
     public static void main(String[] args) {
         JsScript script = new JsScript("""
-                print(readFile(joinPath("script-js", "src", "main", "java", "com", "instancify", "scriptify", "Test.java")));
+                print(randomUUID());
                 """);
 
         StandardFunctionManager functionManager = new StandardFunctionManager();

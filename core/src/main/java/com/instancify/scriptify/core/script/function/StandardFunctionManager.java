@@ -26,6 +26,7 @@ public class StandardFunctionManager implements ScriptFunctionManager {
         this.register(new ScriptFunctionBase64Decode());
         this.register(new ScriptFunctionDownloadFromUrl());
         this.register(new ScriptFunctionJoinPath());
+        this.register(new ScriptFunctionRandomUUID());
     }
 
     @Override

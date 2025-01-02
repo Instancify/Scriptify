@@ -15,6 +15,7 @@ public class StandardFunctionManager implements ScriptFunctionManager {
         this.register(new ScriptFunctionPrint());
         this.register(new ScriptFunctionExistsFile());
         this.register(new ScriptFunctionDeleteFile());
+        this.register(new ScriptFunctionMoveFile());
         this.register(new ScriptFunctionReadFile());
         this.register(new ScriptFunctionWriteFile());
         this.register(new ScriptFunctionZipFile());

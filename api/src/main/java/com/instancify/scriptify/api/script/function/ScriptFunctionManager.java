@@ -27,7 +27,7 @@ public interface ScriptFunctionManager {
     /**
      * Registers a new function in the manager.
      *
-     * @param scriptFunction The function to be registered
+     * @param function The function to be registered
      */
-    void register(ScriptFunction scriptFunction);
+    void register(ScriptFunction function);
 }

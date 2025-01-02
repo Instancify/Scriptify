@@ -1,5 +1,6 @@
 package com.instancify.scriptify.api.script;
 
+import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 
 /**
@@ -14,6 +15,8 @@ public interface Script {
      * @see ScriptFunctionManager
      */
     void setFunctionManager(ScriptFunctionManager functionManager);
+
+    void setConstantManager(ScriptConstantManager constantManager);
 
     /**
      * Evaluates and executes this script.

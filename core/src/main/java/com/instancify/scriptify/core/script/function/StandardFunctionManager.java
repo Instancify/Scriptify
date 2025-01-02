@@ -7,11 +7,11 @@ import com.instancify.scriptify.core.script.function.impl.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StandardConstantManager implements ScriptFunctionManager {
+public class StandardFunctionManager implements ScriptFunctionManager {
 
     private final Map<String, ScriptFunction> functions = new HashMap<>();
 
-    public StandardConstantManager() {
+    public StandardFunctionManager() {
         this.register(new ScriptFunctionPrint());
         this.register(new ScriptFunctionExistsFile());
         this.register(new ScriptFunctionDeleteFile());

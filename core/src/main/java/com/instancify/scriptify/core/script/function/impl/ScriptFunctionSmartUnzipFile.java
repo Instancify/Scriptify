@@ -59,7 +59,6 @@ public class ScriptFunctionSmartUnzipFile implements ScriptFunction {
 
                     // Check if the file matches any pattern
                     boolean matches = regexPatterns.stream().anyMatch(pattern -> pattern.matcher(fileName).matches());
-
                     if (matches) {
                         File newFile = newFile(fileDecompressed, zipEntry);
                         if (zipEntry.isDirectory()) {

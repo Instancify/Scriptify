@@ -8,10 +8,7 @@ import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 public class Test {
     public static void main(String[] args) {
         JsScript script = new JsScript("""
-                var text = "Hello world!";
-                var encoded = base64encode(text);
-                var decoded = base64decode(encoded);
-                print(encoded + " " + decoded)
+                smartZipFile("./", "penis.zip", ["LICENSE", "README.md", ".idea"]);
                 """);
 
         StandardFunctionManager functionManager = new StandardFunctionManager();

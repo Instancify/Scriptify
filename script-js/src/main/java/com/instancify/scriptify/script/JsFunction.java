@@ -18,11 +18,10 @@ public class JsFunction implements Function {
     @Override
     public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] objects) {
         try {
-            function.invoke(objects);
+            return function.invoke(objects);
         } catch (ScriptFunctionException e) {
             throw new RuntimeException(e);
         }
-        return Undefined.instance;
     }
 
     @Override

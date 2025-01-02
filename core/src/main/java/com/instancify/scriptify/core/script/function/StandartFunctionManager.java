@@ -13,6 +13,7 @@ public class StandartFunctionManager implements ScriptFunctionManager {
 
     public StandartFunctionManager() {
         this.register(new ScriptFunctionPrint());
+        this.register(new ScriptFunctionExistsFile());
         this.register(new ScriptFunctionDeleteFile());
         this.register(new ScriptFunctionReadFile());
         this.register(new ScriptFunctionWriteFile());

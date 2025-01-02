@@ -8,8 +8,10 @@ import com.instancify.scriptify.api.script.function.ScriptFunction;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 
+/**
+ * Represents a function to write the contents of a file
+ */
 public class ScriptFunctionWriteFile implements ScriptFunction {
 
     @Override

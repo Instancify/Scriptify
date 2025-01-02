@@ -5,29 +5,24 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- * Represents a function to read the contents of a file
+ * Represents a function to check the existence of a file
  */
-public class ScriptFunctionReadFile implements ScriptFunction {
+public class ScriptFunctionExistsFile implements ScriptFunction {
 
     @Override
     public String getName() {
-        return "readFile";
+        return "existsFile";
     }
 
     @Override
     public Object invoke(Object[] args) throws ScriptFunctionException {
         if (args.length == 1) {
             if (args[0] instanceof String filePath) {
-                try {
-                    return Files.readString(Path.of(filePath));
-                } catch (IOException e) {
-                    throw new ScriptFunctionException(e);
-                }
+                return Files.exists(Path.of(filePath));
             } else {
                 throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
             }

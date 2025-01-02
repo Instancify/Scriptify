@@ -5,6 +5,9 @@ import com.instancify.scriptify.api.script.function.ScriptFunction;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a function for outputting messages to the console
+ */
 public class ScriptFunctionPrint implements ScriptFunction {
 
     @Override

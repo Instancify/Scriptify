@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Represents a function to write the contents of a file
+ */
 public class ScriptFunctionWriteFile implements ScriptFunction {
 
     @Override

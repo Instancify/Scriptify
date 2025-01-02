@@ -7,6 +7,9 @@ import com.instancify.scriptify.api.script.function.ScriptFunction;
 
 import java.io.File;
 
+/**
+ * Represents a function to delete a file in the normal or recursive way
+ */
 public class ScriptFunctionDeleteFile implements ScriptFunction {
 
     @Override

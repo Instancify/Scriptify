@@ -20,16 +20,16 @@ public class ScriptFunctionDeleteFile implements ScriptFunction {
     @Override
     public Object invoke(Object[] args) throws ScriptFunctionException {
         if (args.length == 1) {
-            if (args[0] instanceof String fileName) {
-                new File(fileName).delete();
+            if (args[0] instanceof String filePath) {
+                new File(filePath).delete();
             } else {
                 throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
             }
             return null;
         } else if (args.length == 2) {
-            if (args[0] instanceof String fileName) {
+            if (args[0] instanceof String filePath) {
                 if (args[1] instanceof Boolean recursive) {
-                    File file = new File(fileName);
+                    File file = new File(filePath);
                     if (recursive) {
                         deleteDirectoryRecursively(file);
                     } else {

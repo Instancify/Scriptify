@@ -2,10 +2,7 @@ package com.instancify.scriptify.core.script.function;
 
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
-import com.instancify.scriptify.core.script.function.impl.ScriptFunctionDeleteFile;
-import com.instancify.scriptify.core.script.function.impl.ScriptFunctionPrint;
-import com.instancify.scriptify.core.script.function.impl.ScriptFunctionReadFile;
-import com.instancify.scriptify.core.script.function.impl.ScriptFunctionWriteFile;
+import com.instancify.scriptify.core.script.function.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +13,7 @@ public class StandartFunctionManager implements ScriptFunctionManager {
 
     public StandartFunctionManager() {
         this.register(new ScriptFunctionPrint());
+        this.register(new ScriptFunctionExistsFile());
         this.register(new ScriptFunctionDeleteFile());
         this.register(new ScriptFunctionReadFile());
         this.register(new ScriptFunctionWriteFile());

@@ -16,6 +16,12 @@ const foundFiles = [];
 // Search all files in the current folder
 listFiles("").forEach(file => {
     print(`Found file in folder ${file}.`)
+    // Get the file name and delete the file maven-metadata.xml
+    const foundFileName = normalizePath(file).replace(`${normalizePath(baseDir)}/`, "");
+    if (foundFileName === fileName) {
+        print(`File ${file} found. Delete it.`);
+        deleteFile(file);
+    }
     foundFiles.push(file);
 });
 

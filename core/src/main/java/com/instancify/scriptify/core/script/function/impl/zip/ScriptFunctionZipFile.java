@@ -1,4 +1,4 @@
-package com.instancify.scriptify.core.script.function.impl;
+package com.instancify.scriptify.core.script.function.impl.zip;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
@@ -9,60 +9,40 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 /**
- * Represents a function to archive specific files to archive file based on regex or full file names.
+ * Represents a function to archive file to zip
  */
-public class ScriptFunctionSmartZipFile implements ScriptFunction {
+public class ScriptFunctionZipFile implements ScriptFunction {
 
     @Override
     public String getName() {
-        return "smartZipFile";
+        return "zipFile";
     }
 
     @Override
     public Object invoke(Object[] args) throws ScriptFunctionException {
-        if (args.length != 3) {
-            throw new ScriptFunctionArgsCountException(3, args.length);
+        if (args.length != 2) {
+            throw new ScriptFunctionArgsCountException(2, args.length);
         }
 
-        if (!(args[0] instanceof String filesPath)) {
+        if (!(args[0] instanceof String filePath)) {
             throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
         }
         if (!(args[1] instanceof String compressedFilePath)) {
             throw new ScriptFunctionArgTypeException(String.class, args[1].getClass());
         }
-        if (!(args[2] instanceof List<?> patterns)) {
-            throw new ScriptFunctionArgTypeException(List.class, args[2].getClass());
-        }
 
         try {
-            File filesToZip = new File(filesPath);
+            File fileToZip = new File(filePath);
             File compressedFile = new File(compressedFilePath);
+
             FileOutputStream fos = new FileOutputStream(compressedFile);
             ZipOutputStream zipOut = new ZipOutputStream(fos);
 
-            List<Pattern> regexPatterns = patterns.stream()
-                    .filter(String.class::isInstance)
-                    .map(String.class::cast)
-                    .map(Pattern::compile)
-                    .toList();
-
-            if(filesToZip.isDirectory()) {
-                for(File file : filesToZip.listFiles()) {
-                    String fileName = file.getName();
-                    boolean matches = regexPatterns.stream().anyMatch(pattern -> pattern.matcher(fileName).matches());
-
-                    if(matches) {
-                        zipFile(file, fileName, zipOut);
-                    }
-                }
-            }
-
+            zipFile(fileToZip, fileToZip.getName(), zipOut);
             zipOut.close();
             fos.close();
         } catch (IOException e) {

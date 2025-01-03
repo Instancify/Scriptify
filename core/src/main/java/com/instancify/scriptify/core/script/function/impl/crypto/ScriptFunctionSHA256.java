@@ -1,4 +1,4 @@
-package com.instancify.scriptify.core.script.function.impl;
+package com.instancify.scriptify.core.script.function.impl.crypto;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
@@ -11,12 +11,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Represents a function to generate md5 hash for string
+ * Represents a function to generate sha256 hash for string
  */
-public class ScriptFunctionMD5 implements ScriptFunction {
+public class ScriptFunctionSHA256 implements ScriptFunction {
     @Override
     public String getName() {
-        return "md5";
+        return "sha256";
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ScriptFunctionMD5 implements ScriptFunction {
         }
 
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] messageDigest = md.digest(input.getBytes(StandardCharsets.UTF_8));
 
             BigInteger no = new BigInteger(1, messageDigest);

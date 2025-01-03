@@ -1,4 +1,4 @@
-package com.instancify.scriptify.core.script.function.impl;
+package com.instancify.scriptify.core.script.function.impl.os;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;

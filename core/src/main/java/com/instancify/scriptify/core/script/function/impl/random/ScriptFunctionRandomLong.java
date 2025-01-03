@@ -1,4 +1,4 @@
-package com.instancify.scriptify.core.script.function.impl;
+package com.instancify.scriptify.core.script.function.impl.random;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
@@ -8,13 +8,13 @@ import com.instancify.scriptify.api.script.function.ScriptFunction;
 import java.util.Random;
 
 /**
- * Represents a function to generate random double number
+ * Represents a function to generate random long number
  */
-public class ScriptFunctionRandomDouble implements ScriptFunction {
+public class ScriptFunctionRandomLong implements ScriptFunction {
 
     @Override
     public String getName() {
-        return "randomDouble";
+        return "randomLong";
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ScriptFunctionRandomDouble implements ScriptFunction {
 
         if(args.length == 1) {
             if (args[0] instanceof Number max) {
-                return random.nextDouble(max.doubleValue());
+                return random.nextLong(max.longValue());
             } else {
                 throw new ScriptFunctionArgTypeException(Number.class, args[0].getClass());
             }
@@ -33,7 +33,7 @@ public class ScriptFunctionRandomDouble implements ScriptFunction {
         if(args.length == 2) {
             if(args[0] instanceof Number min) {
                 if(args[1] instanceof Number max) {
-                    return random.nextDouble(max.doubleValue() - min.doubleValue()) + min.doubleValue();
+                    return random.nextLong(max.longValue() - min.longValue()) + min.longValue();
                 } else {
                     throw new ScriptFunctionArgTypeException(Number.class, args[1].getClass());
                 }

@@ -1,5 +1,6 @@
 package com.instancify.scriptify.core.script.function.impl;
 
+import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 
 import java.util.Arrays;
@@ -16,7 +17,7 @@ public class ScriptFunctionPrint implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Object[] args) {
+    public Object invoke(Script script, Object[] args) {
         System.out.println(Arrays.stream(args).map(String::valueOf).collect(Collectors.joining(" ")));
         return null;
     }

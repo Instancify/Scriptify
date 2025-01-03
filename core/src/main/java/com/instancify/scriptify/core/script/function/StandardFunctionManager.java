@@ -3,6 +3,11 @@ package com.instancify.scriptify.core.script.function;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 import com.instancify.scriptify.core.script.function.impl.*;
+import com.instancify.scriptify.core.script.function.impl.crypto.*;
+import com.instancify.scriptify.core.script.function.impl.file.*;
+import com.instancify.scriptify.core.script.function.impl.os.*;
+import com.instancify.scriptify.core.script.function.impl.random.*;
+import com.instancify.scriptify.core.script.function.impl.zip.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +40,7 @@ public class StandardFunctionManager implements ScriptFunctionManager {
         this.register(new ScriptFunctionMD5());
         this.register(new ScriptFunctionSHA256());
         this.register(new ScriptFunctionExecCommand());
+        this.register(new ScriptFunctionEnv());
         this.register(new ScriptFunctionShuffleArray());
     }
 

@@ -1,8 +1,9 @@
-package com.instancify.scriptify.core.script.function.impl;
+package com.instancify.scriptify.core.script.function.impl.crypto;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
+import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 
 import java.math.BigInteger;
@@ -11,16 +12,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Represents a function to generate sha256 hash for string
+ * Represents a function to generate md5 hash for string
  */
-public class ScriptFunctionSHA256 implements ScriptFunction {
+public class ScriptFunctionMD5 implements ScriptFunction {
     @Override
     public String getName() {
-        return "sha256";
+        return "md5";
     }
 
     @Override
-    public Object invoke(Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
         if (args.length != 1) {
             throw new ScriptFunctionArgsCountException(1, args.length);
         }
@@ -30,7 +31,7 @@ public class ScriptFunctionSHA256 implements ScriptFunction {
         }
 
         try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] messageDigest = md.digest(input.getBytes(StandardCharsets.UTF_8));
 
             BigInteger no = new BigInteger(1, messageDigest);

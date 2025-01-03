@@ -9,15 +9,10 @@ import org.mozilla.javascript.*;
 
 public class JsScript implements Script {
 
-    private final String scriptString;
     private final Context context = Context.enter();
     private final ScriptableObject scope = context.initStandardObjects();
     private ScriptFunctionManager functionManager;
     private ScriptConstantManager constantManager;
-
-    public JsScript(String scriptString) {
-        this.scriptString = scriptString;
-    }
 
     @Override
     public ScriptFunctionManager getFunctionManager() {
@@ -40,13 +35,13 @@ public class JsScript implements Script {
     }
 
     @Override
-    public void eval() {
+    public void eval(String script) {
         for(ScriptFunction function : functionManager.getFunctions().values()) {
-            scope.put(function.getName(), scope, new JsFunction(function));
+            scope.put(function.getName(), scope, new JsFunction(this, function));
         }
         for(ScriptConstant constant : constantManager.getConstants().values()) {
             ScriptableObject.putConstProperty(scope, constant.getName(), constant.getValue());
         }
-        context.evaluateString(scope, scriptString, null, 1, null);
+        context.evaluateString(scope, script, null, 1, null);
     }
 }

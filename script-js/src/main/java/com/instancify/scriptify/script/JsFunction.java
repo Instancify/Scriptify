@@ -1,24 +1,26 @@
 package com.instancify.scriptify.script;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
+import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
-import org.mozilla.javascript.Undefined;
 
 public class JsFunction implements Function {
 
+    private final Script script;
     private final ScriptFunction function;
 
-    public JsFunction(final ScriptFunction function) {
+    public JsFunction(Script script, final ScriptFunction function) {
+        this.script = script;
         this.function = function;
     }
 
     @Override
     public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] objects) {
         try {
-            return function.invoke(objects);
+            return function.invoke(script, objects);
         } catch (ScriptFunctionException e) {
             throw new RuntimeException(e);
         }

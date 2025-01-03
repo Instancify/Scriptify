@@ -1,8 +1,9 @@
-package com.instancify.scriptify.core.script.function.impl;
+package com.instancify.scriptify.core.script.function.impl.zip;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
+import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 
 import java.io.File;
@@ -23,7 +24,7 @@ public class ScriptFunctionZipFile implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
         if (args.length != 2) {
             throw new ScriptFunctionArgsCountException(2, args.length);
         }

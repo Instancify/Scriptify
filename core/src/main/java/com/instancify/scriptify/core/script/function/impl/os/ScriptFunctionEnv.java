@@ -1,24 +1,19 @@
-package com.instancify.scriptify.core.script.function.impl;
+package com.instancify.scriptify.core.script.function.impl.os;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import org.mozilla.javascript.NativeArray;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**
- * Represents a function to shuffle an array
+ * Represents a function to get environment variable value
  */
-public class ScriptFunctionShuffleArray implements ScriptFunction {
+public class ScriptFunctionEnv implements ScriptFunction {
 
     @Override
     public String getName() {
-        return "shuffleArray";
+        return "env";
     }
 
     @Override
@@ -27,13 +22,10 @@ public class ScriptFunctionShuffleArray implements ScriptFunction {
             throw new ScriptFunctionArgsCountException(1, args.length);
         }
 
-        if (!(args[0] instanceof NativeArray array)) {
-            throw new ScriptFunctionArgTypeException(NativeArray.class, args[0].getClass());
+        if (!(args[0] instanceof String name)) {
+            throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
         }
 
-        List<?> list = new ArrayList<Object>(array);
-        Collections.shuffle(list);
-
-        return list;
+        return System.getenv(name);
     }
 }

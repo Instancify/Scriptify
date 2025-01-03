@@ -1,33 +1,29 @@
-package com.instancify.scriptify.core.script.function.impl;
+package com.instancify.scriptify.core.script.function.impl.file;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
+import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 
-import java.io.File;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
- * Represents a function to get all files in a folder
+ * Represents a function to check the existence of a file
  */
-public class ScriptFunctionListFiles implements ScriptFunction {
+public class ScriptFunctionExistsFile implements ScriptFunction {
 
     @Override
     public String getName() {
-        return "listFiles";
+        return "existsFile";
     }
 
     @Override
-    public Object invoke(Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
         if (args.length == 1) {
             if (args[0] instanceof String filePath) {
-                File folder = new File(filePath);
-                if (folder.isDirectory()) {
-                    return Arrays.stream(folder.listFiles()).map(File::getAbsolutePath).toList();
-                } else {
-                    throw new ScriptFunctionException("File is not a folder");
-                }
+                return Files.exists(Path.of(filePath));
             } else {
                 throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
             }

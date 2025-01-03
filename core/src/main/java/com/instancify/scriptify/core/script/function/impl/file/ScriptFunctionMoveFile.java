@@ -1,8 +1,9 @@
-package com.instancify.scriptify.core.script.function.impl;
+package com.instancify.scriptify.core.script.function.impl.file;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
+import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 
 import java.io.File;
@@ -18,7 +19,7 @@ public class ScriptFunctionMoveFile implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
         if (args.length != 2) {
             throw new ScriptFunctionArgsCountException(2, args.length);
         }
@@ -31,8 +32,6 @@ public class ScriptFunctionMoveFile implements ScriptFunction {
         }
 
         File fileToMove = new File(originalFilePath);
-        fileToMove.renameTo(new File(targetFilePath));
-
-        return null;
+        return fileToMove.renameTo(new File(targetFilePath));
     }
 }

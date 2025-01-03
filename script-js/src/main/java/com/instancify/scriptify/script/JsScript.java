@@ -20,8 +20,18 @@ public class JsScript implements Script {
     }
 
     @Override
+    public ScriptFunctionManager getFunctionManager() {
+        return functionManager;
+    }
+
+    @Override
     public void setFunctionManager(ScriptFunctionManager functionManager) {
         this.functionManager = functionManager;
+    }
+
+    @Override
+    public ScriptConstantManager getConstantManager() {
+        return constantManager;
     }
 
     @Override

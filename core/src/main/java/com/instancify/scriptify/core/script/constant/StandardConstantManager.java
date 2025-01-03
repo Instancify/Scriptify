@@ -13,8 +13,8 @@ public class StandardConstantManager implements ScriptConstantManager {
     private final Map<String, ScriptConstant> constants = new HashMap<>();
 
     public StandardConstantManager() {
-        register(new ScriptConstantOsName());
-        register(new ScriptConstantBaseDir());
+        this.register(new ScriptConstantOsName());
+        this.register(new ScriptConstantBaseDir());
     }
 
     @Override

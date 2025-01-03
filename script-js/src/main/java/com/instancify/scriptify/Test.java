@@ -8,7 +8,10 @@ import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 public class Test {
     public static void main(String[] args) {
         JsScript script = new JsScript("""
-                print(randomUUID());
+                print(randomInt(5, 20));
+                print(randomLong(5, 20));
+                print(randomFloat(5, 20));
+                print(randomDouble(5, 20));
                 """);
 
         StandardFunctionManager functionManager = new StandardFunctionManager();

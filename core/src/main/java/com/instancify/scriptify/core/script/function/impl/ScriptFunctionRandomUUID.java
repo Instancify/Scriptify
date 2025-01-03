@@ -5,6 +5,9 @@ import com.instancify.scriptify.api.script.function.ScriptFunction;
 
 import java.util.UUID;
 
+/**
+ * Represents a function to generate random UUID
+ */
 public class ScriptFunctionRandomUUID implements ScriptFunction {
 
     @Override

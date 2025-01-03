@@ -17,25 +17,33 @@ public class ScriptFunctionDeleteFile implements ScriptFunction {
         return "deleteFile";
     }
 
+    // TODO refactor it
     @Override
     public Object invoke(Object[] args) throws ScriptFunctionException {
         if (args.length == 1) {
             if (args[0] instanceof String filePath) {
-                new File(filePath).delete();
+                try {
+                    return new File(filePath).delete();
+                } catch (Exception e) {
+                    return null;
+                }
             } else {
                 throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
             }
-            return null;
         } else if (args.length == 2) {
             if (args[0] instanceof String filePath) {
                 if (args[1] instanceof Boolean recursive) {
-                    File file = new File(filePath);
-                    if (recursive) {
-                        deleteDirectoryRecursively(file);
-                    } else {
-                        file.delete();
+                    try {
+                        File file = new File(filePath);
+                        if (recursive) {
+                            deleteDirectoryRecursively(file);
+                            return null;
+                        } else {
+                            return file.delete();
+                        }
+                    } catch (Exception e) {
+                        return null;
                     }
-                    return null;
                 } else {
                     throw new ScriptFunctionArgTypeException(Boolean.class, args[1].getClass());
                 }

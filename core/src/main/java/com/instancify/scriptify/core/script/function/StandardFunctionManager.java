@@ -32,6 +32,8 @@ public class StandardFunctionManager implements ScriptFunctionManager {
         this.register(new ScriptFunctionRandomLong());
         this.register(new ScriptFunctionRandomFloat());
         this.register(new ScriptFunctionRandomDouble());
+        this.register(new ScriptFunctionMD5());
+        this.register(new ScriptFunctionSHA256());
     }
 
     @Override

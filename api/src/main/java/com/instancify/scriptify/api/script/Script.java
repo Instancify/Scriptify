@@ -43,5 +43,5 @@ public interface Script {
     /**
      * Evaluates and executes this script.
      */
-    void eval();
+    void eval(String script);
 }

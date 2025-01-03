@@ -7,9 +7,7 @@ import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 
 public class Test {
     public static void main(String[] args) {
-        JsScript script = new JsScript("""
-                print(shuffleArray(["a", "b", "c"]))
-                """);
+        JsScript script = new JsScript();
 
         StandardFunctionManager functionManager = new StandardFunctionManager();
         StandardConstantManager constantManager = new StandardConstantManager();
@@ -17,6 +15,8 @@ public class Test {
 
         script.setFunctionManager(functionManager);
         script.setConstantManager(constantManager);
-        script.eval();
+        script.eval("""
+                print(execCommand("java --version"))
+                """);
     }
 }

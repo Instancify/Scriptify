@@ -9,7 +9,7 @@ import com.instancify.scriptify.api.script.function.ScriptFunction;
 /**
  * Represents a function to get environment variable value
  */
-public class ScriptFunctionGetEnv implements ScriptFunction {
+public class ScriptFunctionEnv implements ScriptFunction {
 
     @Override
     public String getName() {

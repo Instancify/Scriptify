@@ -16,7 +16,7 @@ public class Test {
         script.setFunctionManager(functionManager);
         script.setConstantManager(constantManager);
         script.eval("""
-                print(getEnv("JAVA_HOME"))
+                print(env("JAVA_HOME"))
                 """);
     }
 }

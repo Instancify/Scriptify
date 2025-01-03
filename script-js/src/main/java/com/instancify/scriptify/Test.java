@@ -8,7 +8,7 @@ import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 public class Test {
     public static void main(String[] args) {
         JsScript script = new JsScript("""
-                print(execCommand("java --version"))
+                print(shuffleArray(["a", "b", "c"]))
                 """);
 
         StandardFunctionManager functionManager = new StandardFunctionManager();

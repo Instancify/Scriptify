@@ -7,6 +7,7 @@ import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 /**
@@ -23,7 +24,7 @@ public class ScriptFunctionListFiles implements ScriptFunction {
     public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
         if (args.length == 1) {
             if (args[0] instanceof String filePath) {
-                File folder = new File(filePath);
+                File folder = Paths.get(filePath).toAbsolutePath().toFile();
                 if (folder.isDirectory()) {
                     return Arrays.stream(folder.listFiles()).map(File::getAbsolutePath).toList();
                 } else {

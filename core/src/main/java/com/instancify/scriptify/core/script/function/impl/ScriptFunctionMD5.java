@@ -10,6 +10,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Represents a function to generate md5 hash for string
+ */
 public class ScriptFunctionMD5 implements ScriptFunction {
     @Override
     public String getName() {

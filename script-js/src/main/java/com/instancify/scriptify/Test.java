@@ -8,7 +8,7 @@ import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 public class Test {
     public static void main(String[] args) {
         JsScript script = new JsScript("""
-                print(sha256("penis"))
+                print(sha256("Hello"))
                 """);
 
         StandardFunctionManager functionManager = new StandardFunctionManager();

@@ -10,6 +10,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Represents a function to generate sha256 hash for string
+ */
 public class ScriptFunctionSHA256 implements ScriptFunction {
     @Override
     public String getName() {

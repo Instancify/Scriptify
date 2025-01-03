@@ -16,6 +16,12 @@ public interface Script {
      */
     void setFunctionManager(ScriptFunctionManager functionManager);
 
+    /**
+     * Sets the constant manager for this script
+     *
+     * @param constantManager The manager handling script constants
+     * @see ScriptConstantManager
+     */
     void setConstantManager(ScriptConstantManager constantManager);
 
     /**

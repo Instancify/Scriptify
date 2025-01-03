@@ -37,7 +37,7 @@ public class JsScript implements Script {
     @Override
     public void eval(String script) {
         for(ScriptFunction function : functionManager.getFunctions().values()) {
-            scope.put(function.getName(), scope, new JsFunction(function));
+            scope.put(function.getName(), scope, new JsFunction(this, function));
         }
         for(ScriptConstant constant : constantManager.getConstants().values()) {
             ScriptableObject.putConstProperty(scope, constant.getName(), constant.getValue());

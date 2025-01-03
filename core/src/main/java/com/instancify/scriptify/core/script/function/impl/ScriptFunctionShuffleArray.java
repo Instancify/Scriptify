@@ -3,6 +3,7 @@ package com.instancify.scriptify.core.script.function.impl;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
+import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import org.mozilla.javascript.NativeArray;
 
@@ -21,7 +22,7 @@ public class ScriptFunctionShuffleArray implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
         if (args.length != 1) {
             throw new ScriptFunctionArgsCountException(1, args.length);
         }

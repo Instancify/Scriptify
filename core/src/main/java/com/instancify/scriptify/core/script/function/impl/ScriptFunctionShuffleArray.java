@@ -29,7 +29,7 @@ public class ScriptFunctionShuffleArray implements ScriptFunction {
         }
 
         if (!(args[0].getValue() instanceof List<?> array)) {
-            throw new ScriptFunctionArgTypeException(List.class, args[0].getValue().getClass());
+            throw new ScriptFunctionArgTypeException(List.class, args[0].getType());
         }
 
         List<?> list = new ArrayList<Object>(array);

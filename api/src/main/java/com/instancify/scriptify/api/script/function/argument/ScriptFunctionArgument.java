@@ -13,6 +13,15 @@ public interface ScriptFunctionArgument {
     Object getValue();
 
     /**
+     * Retrieves type the of value of this argument.
+     *
+     * @return Type the value of the argument
+     */
+    default Class<?> getType() {
+        return this.getValue().getClass();
+    }
+
+    /**
      * Checks if the value of this argument is an instance of the specified class.
      *
      * @param classOf The class to check against

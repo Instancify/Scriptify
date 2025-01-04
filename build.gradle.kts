@@ -30,7 +30,6 @@ subprojects {
         annotationProcessor("org.projectlombok:lombok:1.18.36")
         testImplementation(platform("org.junit:junit-bom:5.10.0"))
         testImplementation("org.junit.jupiter:junit-jupiter")
-        api(("org.mozilla:rhino:1.7.15"))
     }
 
     tasks.test {

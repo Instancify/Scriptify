@@ -5,7 +5,6 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import org.mozilla.javascript.NativeArray;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,8 +26,8 @@ public class ScriptFunctionShuffleArray implements ScriptFunction {
             throw new ScriptFunctionArgsCountException(1, args.length);
         }
 
-        if (!(args[0] instanceof NativeArray array)) {
-            throw new ScriptFunctionArgTypeException(NativeArray.class, args[0].getClass());
+        if (!(args[0] instanceof List<?> array)) {
+            throw new ScriptFunctionArgTypeException(List.class, args[0].getClass());
         }
 
         List<?> list = new ArrayList<Object>(array);

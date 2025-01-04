@@ -6,7 +6,7 @@ import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 /**
  * Defines the structure of a script that can be executed.
  */
-public interface Script {
+public interface Script<T> {
 
     /**
      * Retrieves the function manager associated with this script.
@@ -43,5 +43,5 @@ public interface Script {
     /**
      * Evaluates and executes this script.
      */
-    void eval(String script);
+    T eval(String script);
 }

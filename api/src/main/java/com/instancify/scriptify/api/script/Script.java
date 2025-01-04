@@ -45,6 +45,12 @@ public interface Script<T> {
      */
     void setConstantManager(ScriptConstantManager constantManager);
 
+    /**
+     * Retrieves the security manager associated with this script.
+     *
+     * @return The ScriptSecurityManager for this script
+     * @see ScriptSecurityManager
+     */
     ScriptSecurityManager getSecurityManager();
 
     /**

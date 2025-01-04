@@ -3,6 +3,7 @@ package com.instancify.scriptify.core.script.function.impl.random;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
 public class ScriptFunctionRandomUUID implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "randomUUID";
     }
 

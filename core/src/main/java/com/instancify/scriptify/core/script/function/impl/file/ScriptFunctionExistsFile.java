@@ -5,6 +5,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +16,7 @@ import java.nio.file.Path;
 public class ScriptFunctionExistsFile implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "existsFile";
     }
 

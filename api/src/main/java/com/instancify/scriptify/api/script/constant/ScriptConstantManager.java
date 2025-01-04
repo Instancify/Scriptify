@@ -1,5 +1,7 @@
 package com.instancify.scriptify.api.script.constant;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Map;
 
 /**
@@ -20,7 +22,7 @@ public interface ScriptConstantManager {
      * @param name The name of the constant to retrieve
      * @return The ScriptConstant associated with the name, or null if not found
      */
-    default ScriptConstant getConstant(String name) {
+    default @Nullable ScriptConstant getConstant(String name) {
         return this.getConstants().get(name);
     }
 

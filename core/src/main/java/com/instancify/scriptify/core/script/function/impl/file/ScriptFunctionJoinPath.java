@@ -4,6 +4,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a function to join path
@@ -11,7 +12,7 @@ import com.instancify.scriptify.api.script.function.ScriptFunction;
 public class ScriptFunctionJoinPath implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "joinPath";
     }
 

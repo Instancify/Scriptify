@@ -5,6 +5,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,7 +20,7 @@ import java.util.zip.ZipOutputStream;
 public class ScriptFunctionZipFile implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "zipFile";
     }
 

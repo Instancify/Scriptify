@@ -5,6 +5,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ScriptFunctionShuffleArray implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "shuffleArray";
     }
 

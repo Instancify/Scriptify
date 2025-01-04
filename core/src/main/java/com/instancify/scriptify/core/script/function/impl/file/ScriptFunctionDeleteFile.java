@@ -5,6 +5,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
@@ -14,7 +15,7 @@ import java.io.File;
 public class ScriptFunctionDeleteFile implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "deleteFile";
     }
 

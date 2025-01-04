@@ -2,6 +2,8 @@ package com.instancify.scriptify.api.script.function;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a function that can be used within scripts.
@@ -13,7 +15,7 @@ public interface ScriptFunction {
      *
      * @return The function's name
      */
-    String getName();
+    @NotNull String getName();
 
     /**
      * Invokes the function with the provided arguments.
@@ -23,5 +25,5 @@ public interface ScriptFunction {
      * @return The result of the function execution
      * @throws ScriptFunctionException If there's an error during invocation
      */
-    Object invoke(Script script, Object[] args) throws ScriptFunctionException;
+    @Nullable Object invoke(Script script, Object[] args) throws ScriptFunctionException;
 }

@@ -5,6 +5,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +22,7 @@ import java.util.zip.ZipInputStream;
 public class ScriptFunctionSmartUnzipFile implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "smartUnzipFile";
     }
 

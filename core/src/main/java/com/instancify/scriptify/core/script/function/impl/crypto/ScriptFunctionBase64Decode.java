@@ -5,6 +5,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -14,7 +15,7 @@ import java.util.Base64;
  */
 public class ScriptFunctionBase64Decode implements ScriptFunction {
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "base64decode";
     }
 

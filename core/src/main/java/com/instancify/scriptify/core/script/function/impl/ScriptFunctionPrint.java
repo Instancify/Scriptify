@@ -2,6 +2,8 @@ package com.instancify.scriptify.core.script.function.impl;
 
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -12,13 +14,13 @@ import java.util.stream.Collectors;
 public class ScriptFunctionPrint implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "print";
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) {
-        System.out.println(Arrays.stream(args).map(String::valueOf).collect(Collectors.joining(" ")));
+    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) {
+        System.out.println(Arrays.stream(args).map(arg -> arg.getValue().toString()).collect(Collectors.joining(" ")));
         return null;
     }
 }

@@ -8,5 +8,5 @@ repositories {
 
 dependencies {
     api(project(":core"))
-    api("org.mozilla:rhino:1.7.15")
+    api("org.mozilla:rhino:1.8.0")
 }

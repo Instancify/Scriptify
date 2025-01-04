@@ -1,6 +1,7 @@
 package com.instancify.scriptify.core.script.constant.impl;
 
 import com.instancify.scriptify.api.script.constant.ScriptConstant;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.file.Paths;
 
@@ -10,7 +11,7 @@ import java.nio.file.Paths;
 public class ScriptConstantBaseDir implements ScriptConstant {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "baseDir";
     }
 

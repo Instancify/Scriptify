@@ -1,5 +1,8 @@
 package com.instancify.scriptify.api.script.constant;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * Represents a constant that can be used within scripts.
  */
@@ -10,14 +13,14 @@ public interface ScriptConstant {
      *
      * @return The name of the constant
      */
-    String getName();
+    @NotNull String getName();
 
     /**
      * Gets the value of the constant.
      *
      * @return The value of the constant
      */
-    Object getValue();
+    @Nullable Object getValue();
 
     /**
      * Creates a new ScriptConstant instance with the given name and value.
@@ -29,7 +32,7 @@ public interface ScriptConstant {
     static ScriptConstant of(String name, Object value) {
         return new ScriptConstant() {
             @Override
-            public String getName() {
+            public @NotNull String getName() {
                 return name;
             }
 

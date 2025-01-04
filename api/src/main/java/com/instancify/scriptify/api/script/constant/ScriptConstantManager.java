@@ -32,4 +32,11 @@ public interface ScriptConstantManager {
      * @param constant The constant to be registered
      */
     void register(ScriptConstant constant);
+
+    /**
+     * Removes an existing constant in the manager.
+     *
+     * @param name The name of the constant to remove
+     */
+    void remove(String name);
 }

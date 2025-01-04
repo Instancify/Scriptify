@@ -32,4 +32,11 @@ public interface ScriptFunctionManager {
      * @param function The function to be registered
      */
     void register(ScriptFunction function);
+
+    /**
+     * Removes an existing function in the manager.
+     *
+     * @param name The name of the function to remove
+     */
+    void remove(String name);
 }

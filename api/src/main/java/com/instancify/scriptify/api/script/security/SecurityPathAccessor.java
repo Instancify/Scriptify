@@ -1,13 +1,14 @@
 package com.instancify.scriptify.api.script.security;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class SecurityPathAccessor {
     private final ScriptSecurityManager securityManager;
     private final Path basePath;
 
     public SecurityPathAccessor(final ScriptSecurityManager securityManager) {
-        this(securityManager, Path.of(""));
+        this(securityManager, Paths.get("").toAbsolutePath());
     }
 
     public SecurityPathAccessor(final ScriptSecurityManager securityManager, Path basePath) {
@@ -20,7 +21,7 @@ public class SecurityPathAccessor {
             return Path.of(path);
         }
 
-        return Path.of(basePath.toString(), path.replaceAll(":\\\\", "/"));
+        return Path.of(basePath.toString(), path.replaceAll(":", ""));
     }
 
     public boolean isAcessible(String path) {

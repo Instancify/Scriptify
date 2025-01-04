@@ -2,6 +2,7 @@ package com.instancify.scriptify.api.script.function;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
+import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,5 +26,5 @@ public interface ScriptFunction {
      * @return The result of the function execution
      * @throws ScriptFunctionException If there's an error during invocation
      */
-    @Nullable Object invoke(Script<?> script, Object[] args) throws ScriptFunctionException;
+    @Nullable Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException;
 }

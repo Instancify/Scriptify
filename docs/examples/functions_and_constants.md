@@ -13,7 +13,7 @@ script.getFunctionManager().register(new ScriptFunction() {
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) {
+    public Object invoke(Script script, ScriptFunctionArgument[] args) {
         System.out.println("Invoked custom function with arguments: " + Arrays.toString(args));
         return null;
     }

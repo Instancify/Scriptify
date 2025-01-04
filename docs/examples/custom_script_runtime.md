@@ -99,9 +99,9 @@ public class JsFunction implements ProxyExecutable {
     @Override
     public Object execute(Value... arguments) {
         // Convert Value... into Object[] so that we could pass arguments to our function:
-        Object[] args = new Object[arguments.length];
+        ScriptFunctionArgument[] args = new ScriptFunctionArgument[arguments.length];
         for (int i = 0; i < arguments.length; i++) {
-            args[i] = arguments[i].as(Object.class);
+            args[i] = ScriptFunctionArgument.of(arguments[i].as(Object.class));
         }
         
         // Now let's call the function with arguments and handle possible exceptions:

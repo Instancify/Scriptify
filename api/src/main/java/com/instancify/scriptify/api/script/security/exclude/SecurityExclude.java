@@ -9,7 +9,6 @@ public interface SecurityExclude {
      */
     String getValue();
 
-
     /**
      * Checks that the value of path or packet is excluded.
      *

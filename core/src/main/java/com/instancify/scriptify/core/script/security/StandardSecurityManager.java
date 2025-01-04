@@ -19,13 +19,13 @@ public class StandardSecurityManager implements ScriptSecurityManager {
     }
 
     @Override
-    public SecurityPathAccessor getSecurityPathAccessor() {
-        return pathAccessor;
+    public void setSecurityMode(boolean securityMode) {
+        this.securityMode = securityMode;
     }
 
     @Override
-    public void setSecurityMode(boolean securityMode) {
-        this.securityMode = securityMode;
+    public SecurityPathAccessor getPathAccessor() {
+        return pathAccessor;
     }
 
     @Override

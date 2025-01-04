@@ -14,8 +14,6 @@ public interface ScriptSecurityManager {
      */
     boolean getSecurityMode();
 
-    SecurityPathAccessor getSecurityPathAccessor();
-
     /**
      * Sets the current security mode.
      *
@@ -23,6 +21,13 @@ public interface ScriptSecurityManager {
      * @see ScriptConstantManager
      */
     void setSecurityMode(boolean securityMode);
+
+    /**
+     * Receives security path accessor.
+     *
+     * @return Security path accessor
+     */
+    SecurityPathAccessor getPathAccessor();
 
     /**
      * Retrieves all existing exclusions for this script.

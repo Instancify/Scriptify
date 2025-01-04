@@ -16,7 +16,11 @@ public class Test {
         script.setFunctionManager(functionManager);
         script.setConstantManager(constantManager);
         script.eval("""
-                print(env("JAVA_HOME"))
+                try {
+                    print(deleteFile("LICENSE", true));
+                } catch(e) {
+                    print(e);
+                }
                 """);
     }
 }

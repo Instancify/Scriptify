@@ -7,7 +7,6 @@ import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * Represents a function to delete a file in the normal or recursive way
@@ -29,41 +28,39 @@ public class ScriptFunctionDeleteFile implements ScriptFunction {
         }
 
         if (args.length == 1) {
-            try {
-                return new File(filePath).delete();
-            } catch (Exception e) {
-                return null;
-            }
+            return new File(filePath).delete();
         }
 
         if (!(args[1] instanceof Boolean recursive)) {
             throw new ScriptFunctionArgTypeException(Boolean.class, args[1].getClass());
         }
 
-        try {
-            File file = new File(filePath);
-            if (recursive) {
-                deleteDirectoryRecursively(file);
-                return null;
-            } else {
-                return file.delete();
-            }
-        } catch (Exception e) {
-            return null;
+        File file = new File(filePath);
+        if (recursive) {
+            return deleteDirectoryRecursively(file);
+        } else {
+            return file.delete();
         }
     }
 
-    private void deleteDirectoryRecursively(File file) throws ScriptFunctionException {
+    private boolean deleteDirectoryRecursively(File file) {
+        boolean success = true;
+
         if (file.isDirectory()) {
             File[] entries = file.listFiles();
             if (entries != null) {
                 for (File entry : entries) {
-                    deleteDirectoryRecursively(entry);
+                    if (!deleteDirectoryRecursively(entry)) {
+                        success = false;
+                    }
                 }
             }
         }
+
         if (!file.delete()) {
-            throw new ScriptFunctionException("Failed to delete " + file);
+            success = false;
         }
+
+        return success;
     }
 }

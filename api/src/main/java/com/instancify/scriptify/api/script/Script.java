@@ -5,6 +5,8 @@ import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 
 /**
  * Defines the structure of a script that can be executed.
+ *
+ * @param <T> Type of value returned by the script after evaluation
  */
 public interface Script<T> {
 

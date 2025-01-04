@@ -14,6 +14,8 @@ public interface ScriptSecurityManager {
      */
     boolean getSecurityMode();
 
+    SecurityPathAccessor getSecurityPathAccessor();
+
     /**
      * Sets the current security mode.
      *

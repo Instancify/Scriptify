@@ -1,6 +1,7 @@
 package com.instancify.scriptify.core.script.security;
 
 import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
+import com.instancify.scriptify.api.script.security.SecurityPathAccessor;
 import com.instancify.scriptify.api.script.security.exclude.SecurityExclude;
 
 import java.util.HashSet;
@@ -10,10 +11,16 @@ public class StandardSecurityManager implements ScriptSecurityManager {
 
     private boolean securityMode;
     private final Set<SecurityExclude> excludes = new HashSet<>();
+    private final SecurityPathAccessor pathAccessor = new SecurityPathAccessor(this);
 
     @Override
     public boolean getSecurityMode() {
         return securityMode;
+    }
+
+    @Override
+    public SecurityPathAccessor getSecurityPathAccessor() {
+        return pathAccessor;
     }
 
     @Override

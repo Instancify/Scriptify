@@ -17,7 +17,7 @@ public class ScriptFunctionJoinPath implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, Object[] args) throws ScriptFunctionException {
         String path = "";
         for (Object arg : args) {
             if (arg instanceof String segment) {

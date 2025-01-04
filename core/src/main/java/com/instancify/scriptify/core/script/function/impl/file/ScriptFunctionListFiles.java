@@ -22,7 +22,7 @@ public class ScriptFunctionListFiles implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, Object[] args) throws ScriptFunctionException {
         if (args.length == 1) {
             if (args[0] instanceof String filePath) {
                 File folder = Paths.get(filePath).toAbsolutePath().toFile();

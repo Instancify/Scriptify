@@ -18,7 +18,7 @@ public class ScriptFunctionPrint implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) {
+    public Object invoke(Script<?> script, Object[] args) {
         System.out.println(Arrays.stream(args).map(String::valueOf).collect(Collectors.joining(" ")));
         return null;
     }

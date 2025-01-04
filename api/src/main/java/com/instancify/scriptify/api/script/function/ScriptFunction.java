@@ -25,5 +25,5 @@ public interface ScriptFunction {
      * @return The result of the function execution
      * @throws ScriptFunctionException If there's an error during invocation
      */
-    @Nullable Object invoke(Script script, Object[] args) throws ScriptFunctionException;
+    @Nullable Object invoke(Script<?> script, Object[] args) throws ScriptFunctionException;
 }

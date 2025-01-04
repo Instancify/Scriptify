@@ -18,7 +18,7 @@ public class ScriptFunctionRandomUUID implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, Object[] args) throws ScriptFunctionException {
         return UUID.randomUUID().toString();
     }
 }

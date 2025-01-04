@@ -20,7 +20,7 @@ public class ScriptFunctionRandomInteger implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, Object[] args) throws ScriptFunctionException {
         Random random = new Random();
         if (args.length > 2 || args.length < 1) throw new ScriptFunctionArgsCountException(1, args.length);
 

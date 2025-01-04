@@ -19,7 +19,7 @@ public class ScriptFunctionBase64Encode implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, Object[] args) throws ScriptFunctionException {
         if (args.length != 1) {
             throw new ScriptFunctionArgsCountException(1, args.length);
         }

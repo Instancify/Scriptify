@@ -6,6 +6,7 @@ import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
+import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
 import org.graalvm.polyglot.*;
 
 public class JsScript implements Script<Value> {
@@ -13,6 +14,7 @@ public class JsScript implements Script<Value> {
     private final Context context = Context.create();
     private ScriptFunctionManager functionManager;
     private ScriptConstantManager constantManager;
+    private ScriptSecurityManager securityManager;
 
     @Override
     public ScriptFunctionManager getFunctionManager() {
@@ -32,6 +34,11 @@ public class JsScript implements Script<Value> {
     @Override
     public void setConstantManager(ScriptConstantManager constantManager) {
         this.constantManager = constantManager;
+    }
+
+    @Override
+    public ScriptSecurityManager getSecurityManager() {
+        return securityManager;
     }
 
     @Override

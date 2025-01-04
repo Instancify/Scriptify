@@ -6,6 +6,7 @@ import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
+import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 
@@ -15,6 +16,7 @@ public class JsScript implements Script<Object> {
     private final ScriptableObject scope = context.initStandardObjects();
     private ScriptFunctionManager functionManager;
     private ScriptConstantManager constantManager;
+    private ScriptSecurityManager securityManager;
 
     @Override
     public ScriptFunctionManager getFunctionManager() {
@@ -34,6 +36,11 @@ public class JsScript implements Script<Object> {
     @Override
     public void setConstantManager(ScriptConstantManager constantManager) {
         this.constantManager = constantManager;
+    }
+
+    @Override
+    public ScriptSecurityManager getSecurityManager() {
+        return securityManager;
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,18 +18,18 @@ import java.util.List;
 public class ScriptFunctionShuffleArray implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "shuffleArray";
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
         if (args.length != 1) {
             throw new ScriptFunctionArgsCountException(1, args.length);
         }
 
-        if (!(args[0] instanceof List<?> array)) {
-            throw new ScriptFunctionArgTypeException(List.class, args[0].getClass());
+        if (!(args[0].getValue() instanceof List<?> array)) {
+            throw new ScriptFunctionArgTypeException(List.class, args[0].getType());
         }
 
         List<?> list = new ArrayList<Object>(array);

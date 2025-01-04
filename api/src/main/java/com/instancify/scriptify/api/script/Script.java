@@ -1,12 +1,16 @@
 package com.instancify.scriptify.api.script;
 
+import com.instancify.scriptify.api.exception.ScriptException;
+import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 
 /**
  * Defines the structure of a script that can be executed.
+ *
+ * @param <T> Type of value returned by the script after evaluation
  */
-public interface Script {
+public interface Script<T> {
 
     /**
      * Retrieves the function manager associated with this script.
@@ -42,6 +46,8 @@ public interface Script {
 
     /**
      * Evaluates and executes this script.
+     *
+     * @throws ScriptFunctionException If there's an error during script evaluation
      */
-    void eval(String script);
+    T eval(String script) throws ScriptException;
 }

@@ -24,6 +24,19 @@ public class StandardConstantManager implements ScriptConstantManager {
 
     @Override
     public void register(ScriptConstant constant) {
-        constants.put(constant.getName(), constant);
+        if (!constants.containsKey(constant.getName())) {
+            constants.put(constant.getName(), constant);
+        } else {
+            throw new IllegalStateException("The constant with this name already exists");
+        }
+    }
+
+    @Override
+    public void remove(String name) {
+        if (constants.containsKey(name)) {
+            constants.remove(name);
+        } else {
+            throw new IllegalArgumentException("The constant with this name does not exist");
+        }
     }
 }

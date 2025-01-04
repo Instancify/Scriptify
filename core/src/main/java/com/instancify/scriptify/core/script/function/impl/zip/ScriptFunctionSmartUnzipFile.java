@@ -5,6 +5,8 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,24 +23,24 @@ import java.util.zip.ZipInputStream;
 public class ScriptFunctionSmartUnzipFile implements ScriptFunction {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "smartUnzipFile";
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
         if (args.length != 3) {
             throw new ScriptFunctionArgsCountException(3, args.length);
         }
 
-        if (!(args[0] instanceof String compressedFilePath)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
+        if (!(args[0].getValue() instanceof String compressedFilePath)) {
+            throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
         }
-        if (!(args[1] instanceof String decompressedPath)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[1].getClass());
+        if (!(args[1].getValue() instanceof String decompressedPath)) {
+            throw new ScriptFunctionArgTypeException(String.class, args[1].getType());
         }
-        if (!(args[2] instanceof List<?> patterns)) {
-            throw new ScriptFunctionArgTypeException(List.class, args[2].getClass());
+        if (!(args[2].getValue() instanceof List<?> patterns)) {
+            throw new ScriptFunctionArgTypeException(List.class, args[2].getType());
         }
 
         try {

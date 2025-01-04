@@ -5,6 +5,8 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import org.jetbrains.annotations.NotNull;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
@@ -14,17 +16,17 @@ import java.util.Base64;
  */
 public class ScriptFunctionBase64Decode implements ScriptFunction {
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "base64decode";
     }
 
     @Override
-    public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
         if (args.length != 1) {
             throw new ScriptFunctionArgsCountException(1, args.length);
         }
 
-        if (!(args[0] instanceof String str)) {
+        if (!(args[0].getValue() instanceof String str)) {
             throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
         }
 

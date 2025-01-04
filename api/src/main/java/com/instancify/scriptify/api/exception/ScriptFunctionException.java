@@ -3,7 +3,7 @@ package com.instancify.scriptify.api.exception;
 /**
  * Custom exception for errors in script functions.
  */
-public class ScriptFunctionException extends Exception {
+public class ScriptFunctionException extends ScriptException {
 
     /**
      * Creates a new ScriptFunctionException with the specified message.

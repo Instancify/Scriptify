@@ -60,6 +60,19 @@ public class StandardFunctionManager implements ScriptFunctionManager {
 
     @Override
     public void register(ScriptFunction function) {
-        functions.put(function.getName(), function);
+        if (!functions.containsKey(function.getName())) {
+            functions.put(function.getName(), function);
+        } else {
+            throw new IllegalStateException("The function with this name already exists");
+        }
+    }
+
+    @Override
+    public void remove(String name) {
+        if (functions.containsKey(name)) {
+            functions.remove(name);
+        } else {
+            throw new IllegalArgumentException("The function with this name does not exist");
+        }
     }
 }

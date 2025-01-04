@@ -1,5 +1,6 @@
 package com.instancify.scriptify.script;
 
+import com.instancify.scriptify.api.exception.ScriptException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
@@ -8,7 +9,7 @@ import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 
-public class JsScript implements Script {
+public class JsScript implements Script<Object> {
 
     private final Context context = Context.enter();
     private final ScriptableObject scope = context.initStandardObjects();
@@ -36,7 +37,7 @@ public class JsScript implements Script {
     }
 
     @Override
-    public void eval(String script) {
+    public Object eval(String script) throws ScriptException {
         if (functionManager != null) {
             for (ScriptFunction function : functionManager.getFunctions().values()) {
                 scope.put(function.getName(), scope, new JsFunction(this, function));
@@ -49,6 +50,10 @@ public class JsScript implements Script {
             }
         }
 
-        context.evaluateString(scope, script, null, 1, null);
+        try {
+            return context.evaluateString(scope, script, null, 1, null);
+        } catch (Exception e) {
+            throw new ScriptException(e);
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.instancify.scriptify.script;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import org.mozilla.javascript.Context;
@@ -12,17 +11,17 @@ public class JsFunction implements Function {
     private final Script script;
     private final ScriptFunction function;
 
-    public JsFunction(Script script, final ScriptFunction function) {
+    public JsFunction(Script script, ScriptFunction function) {
         this.script = script;
         this.function = function;
     }
 
     @Override
-    public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] objects) {
+    public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
         try {
-            return function.invoke(script, objects);
-        } catch (ScriptFunctionException e) {
-            throw new RuntimeException(e);
+            return function.invoke(script, args);
+        } catch (Exception e) {
+            throw Context.throwAsScriptRuntimeEx(e);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.instancify.scriptify.api.script;
 
+import com.instancify.scriptify.api.exception.ScriptException;
+import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 
@@ -44,6 +46,8 @@ public interface Script<T> {
 
     /**
      * Evaluates and executes this script.
+     *
+     * @throws ScriptFunctionException If there's an error during script evaluation
      */
-    T eval(String script);
+    T eval(String script) throws ScriptException;
 }

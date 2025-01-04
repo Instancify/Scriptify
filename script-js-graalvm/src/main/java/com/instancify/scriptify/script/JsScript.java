@@ -1,5 +1,6 @@
 package com.instancify.scriptify.script;
 
+import com.instancify.scriptify.api.exception.ScriptException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
@@ -34,7 +35,7 @@ public class JsScript implements Script<Value> {
     }
 
     @Override
-    public Value eval(String script) {
+    public Value eval(String script) throws ScriptException {
         Value bindings = context.getBindings("js");
 
         if (functionManager != null) {
@@ -49,6 +50,10 @@ public class JsScript implements Script<Value> {
             }
         }
 
-        return context.eval("js", script);
+        try {
+            return context.eval("js", script);
+        } catch (Exception e) {
+            throw new ScriptException(e);
+        }
     }
 }

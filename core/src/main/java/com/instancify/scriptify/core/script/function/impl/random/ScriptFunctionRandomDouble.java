@@ -21,9 +21,9 @@ public class ScriptFunctionRandomDouble implements ScriptFunction {
     @Override
     public Object invoke(Script script, Object[] args) throws ScriptFunctionException {
         Random random = new Random();
-        if(args.length > 2 || args.length < 1) throw new ScriptFunctionArgsCountException(1, args.length);
+        if (args.length > 2 || args.length < 1) throw new ScriptFunctionArgsCountException(1, args.length);
 
-        if(args.length == 1) {
+        if (args.length == 1) {
             if (args[0] instanceof Number max) {
                 return random.nextDouble(max.doubleValue());
             } else {

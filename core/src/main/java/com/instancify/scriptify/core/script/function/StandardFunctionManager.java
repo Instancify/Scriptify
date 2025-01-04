@@ -2,12 +2,20 @@ package com.instancify.scriptify.core.script.function;
 
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
-import com.instancify.scriptify.core.script.function.impl.*;
-import com.instancify.scriptify.core.script.function.impl.crypto.*;
+import com.instancify.scriptify.core.script.function.impl.ScriptFunctionPrint;
+import com.instancify.scriptify.core.script.function.impl.ScriptFunctionShuffleArray;
+import com.instancify.scriptify.core.script.function.impl.crypto.ScriptFunctionBase64Decode;
+import com.instancify.scriptify.core.script.function.impl.crypto.ScriptFunctionBase64Encode;
+import com.instancify.scriptify.core.script.function.impl.crypto.ScriptFunctionMD5;
+import com.instancify.scriptify.core.script.function.impl.crypto.ScriptFunctionSHA256;
 import com.instancify.scriptify.core.script.function.impl.file.*;
-import com.instancify.scriptify.core.script.function.impl.os.*;
+import com.instancify.scriptify.core.script.function.impl.os.ScriptFunctionEnv;
+import com.instancify.scriptify.core.script.function.impl.os.ScriptFunctionExecCommand;
 import com.instancify.scriptify.core.script.function.impl.random.*;
-import com.instancify.scriptify.core.script.function.impl.zip.*;
+import com.instancify.scriptify.core.script.function.impl.zip.ScriptFunctionSmartUnzipFile;
+import com.instancify.scriptify.core.script.function.impl.zip.ScriptFunctionSmartZipFile;
+import com.instancify.scriptify.core.script.function.impl.zip.ScriptFunctionUnzipFile;
+import com.instancify.scriptify.core.script.function.impl.zip.ScriptFunctionZipFile;
 
 import java.util.HashMap;
 import java.util.Map;

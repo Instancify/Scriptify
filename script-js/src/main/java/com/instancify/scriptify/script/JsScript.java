@@ -5,7 +5,8 @@ import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
-import org.mozilla.javascript.*;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.ScriptableObject;
 
 public class JsScript implements Script {
 
@@ -36,10 +37,10 @@ public class JsScript implements Script {
 
     @Override
     public void eval(String script) {
-        for(ScriptFunction function : functionManager.getFunctions().values()) {
+        for (ScriptFunction function : functionManager.getFunctions().values()) {
             scope.put(function.getName(), scope, new JsFunction(this, function));
         }
-        for(ScriptConstant constant : constantManager.getConstants().values()) {
+        for (ScriptConstant constant : constantManager.getConstants().values()) {
             ScriptableObject.putConstProperty(scope, constant.getName(), constant.getValue());
         }
         context.evaluateString(scope, script, null, 1, null);

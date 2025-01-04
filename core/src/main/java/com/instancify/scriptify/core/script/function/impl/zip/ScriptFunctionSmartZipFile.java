@@ -53,12 +53,12 @@ public class ScriptFunctionSmartZipFile implements ScriptFunction {
                     .map(Pattern::compile)
                     .toList();
 
-            if(filesToZip.isDirectory()) {
-                for(File file : filesToZip.listFiles()) {
+            if (filesToZip.isDirectory()) {
+                for (File file : filesToZip.listFiles()) {
                     String fileName = file.getName();
                     boolean matches = regexPatterns.stream().anyMatch(pattern -> pattern.matcher(fileName).matches());
 
-                    if(matches) {
+                    if (matches) {
                         zipFile(file, fileName, zipOut);
                     }
                 }

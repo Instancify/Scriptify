@@ -4,6 +4,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,17 +18,17 @@ public class ScriptFunctionJoinPath implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Script<?> script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
         String path = "";
-        for (Object arg : args) {
-            if (arg instanceof String segment) {
+        for (ScriptFunctionArgument arg : args) {
+            if (arg.getValue() instanceof String segment) {
                 if (path.isEmpty()) {
                     path += segment;
                 } else {
                     path += '/' + segment;
                 }
             } else {
-                throw new ScriptFunctionArgTypeException(String.class, args[1].getClass());
+                throw new ScriptFunctionArgTypeException(String.class, args[1].getType());
             }
         }
         return path;

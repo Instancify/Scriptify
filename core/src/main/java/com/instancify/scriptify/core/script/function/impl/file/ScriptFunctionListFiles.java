@@ -5,6 +5,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -22,9 +23,9 @@ public class ScriptFunctionListFiles implements ScriptFunction {
     }
 
     @Override
-    public Object invoke(Script<?> script, Object[] args) throws ScriptFunctionException {
+    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
         if (args.length == 1) {
-            if (args[0] instanceof String filePath) {
+            if (args[0].getValue() instanceof String filePath) {
                 File folder = Paths.get(filePath).toAbsolutePath().toFile();
                 if (folder.isDirectory()) {
                     return Arrays.stream(folder.listFiles()).map(File::getAbsolutePath).toList();
@@ -32,7 +33,7 @@ public class ScriptFunctionListFiles implements ScriptFunction {
                     throw new ScriptFunctionException("File is not a folder");
                 }
             } else {
-                throw new ScriptFunctionArgTypeException(String.class, args[0].getClass());
+                throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
             }
         } else {
             throw new ScriptFunctionArgsCountException(1, args.length);

@@ -7,6 +7,7 @@ repositories {
 }
 
 dependencies {
-    api("org.jetbrains:annotations:26.0.1")
     api(project(":core"))
+    api("org.graalvm.polyglot:polyglot:24.1.1")
+    api("org.graalvm.polyglot:js:24.1.1")
 }

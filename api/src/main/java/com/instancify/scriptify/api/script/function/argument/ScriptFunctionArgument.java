@@ -50,6 +50,16 @@ public interface ScriptFunctionArgument {
      * @return A new ScriptFunctionArgument instance
      */
     static ScriptFunctionArgument of(Object value) {
-        return () -> value;
+        return new ScriptFunctionArgument() {
+            @Override
+            public Object getValue() {
+                return value;
+            }
+
+            @Override
+            public String toString() {
+                return value.toString();
+            }
+        };
     }
 }

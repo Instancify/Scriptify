@@ -1,5 +1,7 @@
 package com.instancify.scriptify.api.script.function;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Map;
 
 /**
@@ -20,7 +22,7 @@ public interface ScriptFunctionManager {
      * @param name The name of the function to retrieve
      * @return The ScriptFunction associated with the name, or null if not found
      */
-    default ScriptFunction getFunction(String name) {
+    default @Nullable ScriptFunction getFunction(String name) {
         return this.getFunctions().get(name);
     }
 
@@ -30,4 +32,11 @@ public interface ScriptFunctionManager {
      * @param function The function to be registered
      */
     void register(ScriptFunction function);
+
+    /**
+     * Removes an existing function in the manager.
+     *
+     * @param name The name of the function to remove
+     */
+    void remove(String name);
 }

@@ -2,6 +2,7 @@ package com.instancify.scriptify.script;
 
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
+import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Function;
 import org.mozilla.javascript.Scriptable;
@@ -17,7 +18,11 @@ public class JsFunction implements Function {
     }
 
     @Override
-    public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] args) {
+    public Object call(Context context, Scriptable scriptable, Scriptable scriptable1, Object[] arguments) {
+        ScriptFunctionArgument[] args = new ScriptFunctionArgument[arguments.length];
+        for (int i = 0; i < arguments.length; i++) {
+            args[i] = ScriptFunctionArgument.of(arguments[i]);
+        }
         try {
             return function.invoke(script, args);
         } catch (Exception e) {

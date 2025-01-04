@@ -1,6 +1,7 @@
 package com.instancify.scriptify.core.script.constant.impl;
 
 import com.instancify.scriptify.api.script.constant.ScriptConstant;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a constant with os name
@@ -8,7 +9,7 @@ import com.instancify.scriptify.api.script.constant.ScriptConstant;
 public class ScriptConstantOsName implements ScriptConstant {
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "osName";
     }
 

@@ -1,5 +1,8 @@
 package com.instancify.scriptify.api.script.security;
 
+import com.instancify.scriptify.api.script.security.exclude.PathSecurityExclude;
+import com.instancify.scriptify.api.script.security.exclude.SecurityExclude;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -70,10 +73,19 @@ public class SecurityPathAccessor {
      * @return true if the path is accessible, false otherwise
      */
     public boolean isAccessible(String path) {
-        /* TODO: Excludes*/
-        if (securityManager.getSecurityMode()) {
-            return false;
+        if (!securityManager.getSecurityMode()) {
+            return true;
         }
-        return true;
+
+        // Search all exclusions and check that the path is excluded
+        for (SecurityExclude exclude : securityManager.getExcludes()) {
+            if (exclude instanceof PathSecurityExclude) {
+                if (exclude.isExcluded(path)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

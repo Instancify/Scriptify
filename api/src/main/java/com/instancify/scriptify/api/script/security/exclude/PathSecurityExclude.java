@@ -12,9 +12,4 @@ public class PathSecurityExclude implements SecurityExclude {
     public String getValue() {
         return value;
     }
-
-    @Override
-    public boolean isExcluded(String value) {
-        return this.getValue().startsWith(value);
-    }
 }

@@ -16,7 +16,8 @@ public interface SecurityExclude {
      * @return True if excluded, otherwise false
      */
     default boolean isExcluded(String value) {
-        return this.getValue().startsWith(value);
+        // Check that the path starts from the path specified in the exclusion
+        return value.startsWith(this.getValue());
     }
 
     /**

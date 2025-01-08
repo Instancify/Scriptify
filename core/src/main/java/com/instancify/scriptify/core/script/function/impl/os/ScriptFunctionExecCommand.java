@@ -31,23 +31,23 @@ public class ScriptFunctionExecCommand implements ScriptFunction {
         if (!(args[0].getValue() instanceof String input)) {
             throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
         }
+
         try {
             Process process = Runtime.getRuntime().exec(input);
-            BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(process.getInputStream()));
-            BufferedReader stdError = new BufferedReader(new
-                    InputStreamReader(process.getErrorStream()));
 
-            String message = "";
-            String buff = null;
-            while ((buff = stdInput.readLine()) != null) {
-                message += buff + "\n";
-            }
-            while ((buff = stdError.readLine()) != null) {
-                message += buff + "\n";
-            }
-            return message;
+            StringBuilder message = new StringBuilder();
+            try (BufferedReader stdInput = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                 BufferedReader stdError = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
 
+                String line;
+                while ((line = stdInput.readLine()) != null) {
+                    message.append(line).append("\n");
+                }
+                while ((line = stdError.readLine()) != null) {
+                    message.append(line).append("\n");
+                }
+            }
+            return message.toString();
         } catch (IOException e) {
             throw new ScriptFunctionException(e);
         }

@@ -4,6 +4,7 @@ import com.instancify.scriptify.api.exception.ScriptException;
 import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
+import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
 
 /**
  * Defines the structure of a script that can be executed.
@@ -43,6 +44,14 @@ public interface Script<T> {
      * @see ScriptConstantManager
      */
     void setConstantManager(ScriptConstantManager constantManager);
+
+    /**
+     * Retrieves the security manager associated with this script.
+     *
+     * @return The ScriptSecurityManager for this script
+     * @see ScriptSecurityManager
+     */
+    ScriptSecurityManager getSecurityManager();
 
     /**
      * Evaluates and executes this script.

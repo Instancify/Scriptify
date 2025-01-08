@@ -6,15 +6,24 @@ import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
+import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
+import com.instancify.scriptify.api.script.security.exclude.ClassSecurityExclude;
+import com.instancify.scriptify.api.script.security.exclude.SecurityExclude;
+import com.instancify.scriptify.core.script.security.StandardSecurityManager;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 
 public class JsScript implements Script<Object> {
 
     private final Context context = Context.enter();
-    private final ScriptableObject scope = context.initStandardObjects();
+    private final ScriptSecurityManager securityManager = new StandardSecurityManager();
     private ScriptFunctionManager functionManager;
     private ScriptConstantManager constantManager;
+
+    @Override
+    public ScriptSecurityManager getSecurityManager() {
+        return securityManager;
+    }
 
     @Override
     public ScriptFunctionManager getFunctionManager() {
@@ -38,6 +47,20 @@ public class JsScript implements Script<Object> {
 
     @Override
     public Object eval(String script) throws ScriptException {
+        ScriptableObject scope = context.initStandardObjects();
+
+        // If security mode is enabled, search all exclusions
+        // and add the classes that were excluded to JsSafeClassShutter
+        if (securityManager.getSecurityMode()) {
+            JsSecurityClassAccessor classAccessor = new JsSecurityClassAccessor();
+            for (SecurityExclude exclude : securityManager.getExcludes()) {
+                if (exclude instanceof ClassSecurityExclude classExclude) {
+                    classAccessor.addAllowedClass(classExclude.getValue());
+                }
+            }
+            context.setClassShutter(classAccessor);
+        }
+
         if (functionManager != null) {
             for (ScriptFunction function : functionManager.getFunctions().values()) {
                 scope.put(function.getName(), scope, new JsFunction(this, function));
@@ -54,6 +77,8 @@ public class JsScript implements Script<Object> {
             return context.evaluateString(scope, script, null, 1, null);
         } catch (Exception e) {
             throw new ScriptException(e);
+        } finally {
+            context.close();
         }
     }
 }

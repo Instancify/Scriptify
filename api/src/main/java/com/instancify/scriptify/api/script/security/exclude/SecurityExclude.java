@@ -21,14 +21,14 @@ public interface SecurityExclude {
     }
 
     /**
-     * Creates a new exclusion instance for the package.
+     * Creates a new exclusion instance for the class.
      *
-     * @param value A package that will be excluded
-     * @return A new exclusion instance for the package
+     * @param value A class that will be excluded
+     * @return A new exclusion instance for the class
      */
-    /*static ClassSecurityExclude ofPackage(String value) {
+    static ClassSecurityExclude ofClass(Class<?> value) {
         return new ClassSecurityExclude(value);
-    }*/
+    }
 
     /**
      * Creates a new exclusion instance for the path.

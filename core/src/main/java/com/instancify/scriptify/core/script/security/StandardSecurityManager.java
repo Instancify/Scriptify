@@ -11,7 +11,7 @@ public class StandardSecurityManager implements ScriptSecurityManager {
 
     private boolean securityMode;
     private final Set<SecurityExclude> excludes = new HashSet<>();
-    private final SecurityPathAccessor pathAccessor = new SecurityPathAccessor(this);
+    private final SecurityPathAccessor pathAccessor = new SecurityPathAccessorImpl(this);
 
     @Override
     public boolean getSecurityMode() {

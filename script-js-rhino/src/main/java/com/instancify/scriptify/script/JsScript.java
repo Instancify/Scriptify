@@ -11,7 +11,6 @@ import com.instancify.scriptify.api.script.security.exclude.ClassSecurityExclude
 import com.instancify.scriptify.api.script.security.exclude.SecurityExclude;
 import com.instancify.scriptify.core.script.security.StandardSecurityManager;
 import org.mozilla.javascript.Context;
-import org.mozilla.javascript.NativeJavaClass;
 import org.mozilla.javascript.ScriptableObject;
 
 public class JsScript implements Script<Object> {
@@ -48,20 +47,19 @@ public class JsScript implements Script<Object> {
 
     @Override
     public Object eval(String script) throws ScriptException {
-        ScriptableObject scope;
+        ScriptableObject scope = context.initStandardObjects();
 
-        if(securityManager.getSecurityMode()){
-            SafeClassShutter safeClassShutter = new SafeClassShutter();
-            context.setClassShutter(safeClassShutter);
-
-            for(SecurityExclude exclude : securityManager.getExcludes()) {
-                if(exclude instanceof ClassSecurityExclude classExclude) {
-                    safeClassShutter.allowedClasses.add(classExclude.getValue());
+        // If security mode is enabled, search all exclusions
+        // and add the classes that were excluded to JsSafeClassShutter
+        if (securityManager.getSecurityMode()) {
+            JsSecurityClassAccessor classAccessor = new JsSecurityClassAccessor();
+            for (SecurityExclude exclude : securityManager.getExcludes()) {
+                if (exclude instanceof ClassSecurityExclude classExclude) {
+                    classAccessor.addAllowedClass(classExclude.getValue());
                 }
             }
+            context.setClassShutter(classAccessor);
         }
-
-        scope = context.initStandardObjects();
 
         if (functionManager != null) {
             for (ScriptFunction function : functionManager.getFunctions().values()) {
@@ -76,12 +74,11 @@ public class JsScript implements Script<Object> {
         }
 
         try {
-            Object value = context.evaluateString(scope, script, null, 1, null);
-            context.close();
-            return value;
+            return context.evaluateString(scope, script, null, 1, null);
         } catch (Exception e) {
-            context.close();
             throw new ScriptException(e);
+        } finally {
+            context.close();
         }
     }
 }

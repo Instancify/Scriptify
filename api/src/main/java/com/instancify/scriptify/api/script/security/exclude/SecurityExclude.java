@@ -1,5 +1,9 @@
 package com.instancify.scriptify.api.script.security.exclude;
 
+/**
+ * Defines exclusions for security purposes, specifically for paths, packages, or classes.
+ * This interface acts as a base for creating exclusion rules in a security context.
+ */
 public interface SecurityExclude {
 
     /**

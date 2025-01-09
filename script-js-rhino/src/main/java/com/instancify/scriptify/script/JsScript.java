@@ -50,7 +50,7 @@ public class JsScript implements Script<Object> {
         ScriptableObject scope = context.initStandardObjects();
 
         // If security mode is enabled, search all exclusions
-        // and add the classes that were excluded to JsSafeClassShutter
+        // and add the classes that were excluded to JsSecurityClassAccessor
         if (securityManager.getSecurityMode()) {
             JsSecurityClassAccessor classAccessor = new JsSecurityClassAccessor();
             for (SecurityExclude exclude : securityManager.getExcludes()) {

@@ -21,6 +21,16 @@ public interface SecurityExclude {
     }
 
     /**
+     * Creates a new exclusion instance for the package.
+     *
+     * @param value A package that will be excluded
+     * @return A new exclusion instance for the package
+     */
+    static PackageSecurityExclude ofPackage(String value) {
+        return new PackageSecurityExclude(value);
+    }
+
+    /**
      * Creates a new exclusion instance for the class.
      *
      * @param value A class that will be excluded

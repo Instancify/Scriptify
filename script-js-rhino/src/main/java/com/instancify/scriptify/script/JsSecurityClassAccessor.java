@@ -1,6 +1,9 @@
 package com.instancify.scriptify.script;
 
 import com.instancify.scriptify.api.script.security.SecurityClassAccessor;
+import com.instancify.scriptify.api.script.security.exclude.ClassSecurityExclude;
+import com.instancify.scriptify.api.script.security.exclude.PackageSecurityExclude;
+import com.instancify.scriptify.api.script.security.exclude.SecurityExclude;
 import org.mozilla.javascript.ClassShutter;
 import org.mozilla.javascript.EcmaError;
 
@@ -9,24 +12,41 @@ import java.util.Set;
 
 public class JsSecurityClassAccessor implements ClassShutter, SecurityClassAccessor {
 
-    private final Set<String> allowedClasses = new HashSet<>();
+    private final Set<SecurityExclude> excludes;
+    private final Set<String> allowedClasses;
+    private final Set<String> allowedPackages;
 
-    public JsSecurityClassAccessor() {
+    public JsSecurityClassAccessor(Set<SecurityExclude> excludes) {
+        this.excludes = excludes;
+        this.allowedClasses = new HashSet<>();
+        this.allowedPackages = new HashSet<>();
+
+        for (SecurityExclude exclude : excludes) {
+            if (exclude instanceof ClassSecurityExclude classExclude) {
+                allowedClasses.add(classExclude.getValue());
+            } else if (exclude instanceof PackageSecurityExclude packageExclude) {
+                allowedPackages.add(packageExclude.getValue());
+            }
+        }
+
         this.allowedClasses.add(EcmaError.class.getName());
     }
 
     @Override
-    public Set<String> getAllowedClasses() {
-        return allowedClasses;
+    public Set<SecurityExclude> getExcludes() {
+        return excludes;
     }
 
     @Override
-    public void addAllowedClass(String allowedClass) {
-        this.allowedClasses.add(allowedClass);
-    }
-
-    @Override
-    public boolean visibleToScripts(String fullClassName) {
-        return this.allowedClasses.contains(fullClassName);
+    public boolean visibleToScripts(String className) {
+        if (this.allowedClasses.contains(className)) {
+            return true;
+        }
+        for (String exclude : this.allowedPackages) {
+            if (className.startsWith(exclude)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

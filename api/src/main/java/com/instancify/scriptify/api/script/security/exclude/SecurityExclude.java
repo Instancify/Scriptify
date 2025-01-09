@@ -1,5 +1,9 @@
 package com.instancify.scriptify.api.script.security.exclude;
 
+/**
+ * Defines exclusions for security purposes, specifically for paths, packages, or classes.
+ * This interface acts as a base for creating exclusion rules in a security context.
+ */
 public interface SecurityExclude {
 
     /**
@@ -18,6 +22,16 @@ public interface SecurityExclude {
     default boolean isExcluded(String value) {
         // Check that the path starts from the path specified in the exclusion
         return value.startsWith(this.getValue());
+    }
+
+    /**
+     * Creates a new exclusion instance for the package.
+     *
+     * @param value A package that will be excluded
+     * @return A new exclusion instance for the package
+     */
+    static PackageSecurityExclude ofPackage(String value) {
+        return new PackageSecurityExclude(value);
     }
 
     /**

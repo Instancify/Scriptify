@@ -1,5 +1,7 @@
 package com.instancify.scriptify.api.script.security;
 
+import com.instancify.scriptify.api.script.security.exclude.SecurityExclude;
+
 import java.util.Set;
 
 /**
@@ -12,12 +14,5 @@ public interface SecurityClassAccessor {
      *
      * @return A set of strings representing the names of allowed classes
      */
-    Set<String> getAllowedClasses();
-
-    /**
-     * Adds a class to the list of allowed classes, which can then be used or accessed.
-     *
-     * @param allowedClass The name of the class to be added to the allowed list
-     */
-    void addAllowedClass(String allowedClass);
+    Set<SecurityExclude> getExcludes();
 }

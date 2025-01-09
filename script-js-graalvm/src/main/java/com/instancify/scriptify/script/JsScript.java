@@ -7,12 +7,13 @@ import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
+import com.instancify.scriptify.api.script.security.exclude.ClassSecurityExclude;
+import com.instancify.scriptify.api.script.security.exclude.SecurityExclude;
 import com.instancify.scriptify.core.script.security.StandardSecurityManager;
 import org.graalvm.polyglot.*;
 
 public class JsScript implements Script<Value> {
 
-    private final Context context = Context.create();
     private final ScriptSecurityManager securityManager = new StandardSecurityManager();
     private ScriptFunctionManager functionManager;
     private ScriptConstantManager constantManager;
@@ -44,6 +45,25 @@ public class JsScript implements Script<Value> {
 
     @Override
     public Value eval(String script) throws ScriptException {
+        Context.Builder builder = Context.newBuilder("js")
+                .allowHostAccess(HostAccess.ALL);
+
+        // If security mode is enabled, search all exclusions
+        // and add the classes that were excluded to JsSecurityClassAccessor
+        if (securityManager.getSecurityMode()) {
+            JsSecurityClassAccessor classAccessor = new JsSecurityClassAccessor();
+            for (SecurityExclude exclude : securityManager.getExcludes()) {
+                if (exclude instanceof ClassSecurityExclude classExclude) {
+                    classAccessor.addAllowedClass(classExclude.getValue());
+                }
+            }
+            builder.allowHostClassLookup(classAccessor);
+        } else {
+            builder.allowHostClassLookup(className -> true);
+        }
+
+        Context context = builder.build();
+
         Value bindings = context.getBindings("js");
 
         if (functionManager != null) {
@@ -62,6 +82,8 @@ public class JsScript implements Script<Value> {
             return context.eval("js", script);
         } catch (Exception e) {
             throw new ScriptException(e);
+        } finally {
+            context.close();
         }
     }
 }

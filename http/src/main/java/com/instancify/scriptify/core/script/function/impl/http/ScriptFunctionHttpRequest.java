@@ -12,6 +12,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
+/**
+ * Represents a function to send http request
+ */
 public class ScriptFunctionHttpRequest implements ScriptFunction {
 
     @Override
@@ -21,15 +24,15 @@ public class ScriptFunctionHttpRequest implements ScriptFunction {
 
     @Override
     public @Nullable Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        if(args.length > 4 || args.length < 2) {
+        if (args.length > 4 || args.length < 2) {
             throw new ScriptFunctionArgsCountException(2, args.length);
         }
 
-        if(!(args[0].getValue() instanceof String method)) {
+        if (!(args[0].getValue() instanceof String method)) {
             throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
         }
 
-        if(!(args[1].getValue() instanceof String url)) {
+        if (!(args[1].getValue() instanceof String url)) {
             throw new ScriptFunctionArgTypeException(String.class, args[1].getType());
         }
 
@@ -38,23 +41,23 @@ public class ScriptFunctionHttpRequest implements ScriptFunction {
 
         if (method.equalsIgnoreCase("POST") || method.equalsIgnoreCase("PUT")) {
 
-            if(!(args[2].getValue() instanceof String body)) {
+            if (!(args[2].getValue() instanceof String body)) {
                 throw new ScriptFunctionArgTypeException(String.class, args[2].getType());
             }
 
-            if(!(args[3].getValue() instanceof String mediaType)) {
+            if (!(args[3].getValue() instanceof String mediaType)) {
                 throw new ScriptFunctionArgTypeException(String.class, args[3].getType());
             }
 
             if (body != null) {
                 RequestBody requestBody = RequestBody.create(body, MediaType.get(mediaType));
                 requestBuilder
-                        .method(method.toString(), requestBody);
+                        .method(method, requestBody);
             } else {
-                requestBuilder.method(method.toString(), RequestBody.create(new byte[0], null));
+                requestBuilder.method(method, RequestBody.create(new byte[0], null));
             }
         } else {
-            requestBuilder.method(method.toString(), null);
+            requestBuilder.method(method, null);
         }
 
         OkHttpClient client = new OkHttpClient();

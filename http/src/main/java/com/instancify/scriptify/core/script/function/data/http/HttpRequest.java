@@ -3,10 +3,13 @@ package com.instancify.scriptify.core.script.function.data.http;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpRequest {
     private final String url;
     private final String method;
+    private final Map<String, String> headers = new HashMap<>();
     private String body = "";
     private String mediaType = "";
 
@@ -20,16 +23,23 @@ public class HttpRequest {
         this.mediaType = mediaType;
     }
 
+    public void addHeader(String key, String value) {
+        headers.put(key, value);
+    }
+
     public String send() {
         Request.Builder requestBuilder = new Request.Builder()
                 .url(url);
+
+        for (Map.Entry<String, String> header : headers.entrySet()) {
+            requestBuilder.addHeader(header.getKey(), header.getValue());
+        }
 
         if (method.equalsIgnoreCase("POST") || method.equalsIgnoreCase("PUT")) {
 
             if (body != null && !body.isEmpty()) {
                 RequestBody requestBody = RequestBody.create(body, MediaType.get(mediaType));
-                requestBuilder
-                        .method(method, requestBody);
+                requestBuilder.method(method, requestBody);
             } else {
                 requestBuilder.method(method, RequestBody.create(new byte[0], null));
             }

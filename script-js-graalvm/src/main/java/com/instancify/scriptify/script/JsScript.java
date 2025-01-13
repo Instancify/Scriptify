@@ -2,6 +2,7 @@ package com.instancify.scriptify.script;
 
 import com.instancify.scriptify.api.exception.ScriptException;
 import com.instancify.scriptify.api.script.Script;
+import com.instancify.scriptify.api.script.ScriptObject;
 import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
@@ -46,7 +47,16 @@ public class JsScript implements Script<Value> {
     @Override
     public Value eval(String script) throws ScriptException {
         Context.Builder builder = Context.newBuilder("js")
-                .allowHostAccess(HostAccess.ALL);
+                .allowHostAccess(HostAccess.newBuilder(HostAccess.ALL)
+                        // Mapping for the ScriptObject class required
+                        // to convert a ScriptObject to the value it contains
+                        .targetTypeMapping(
+                                ScriptObject.class,
+                                Object.class,
+                                object -> true,
+                                ScriptObject::getValue
+                        )
+                        .build());
 
         // If security mode is enabled, search all exclusions
         // and add the classes that were excluded to JsSecurityClassAccessor

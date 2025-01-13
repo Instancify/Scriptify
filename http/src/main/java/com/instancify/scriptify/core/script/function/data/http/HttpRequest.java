@@ -1,5 +1,6 @@
 package com.instancify.scriptify.core.script.function.data.http;
 
+import com.instancify.scriptify.api.script.ScriptObject;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class HttpRequest {
         headers.put(key, value);
     }
 
-    public String send() {
+    public Object send(String outputType) {
         Request.Builder requestBuilder = new Request.Builder()
                 .url(url);
 
@@ -52,7 +53,11 @@ public class HttpRequest {
         try (Response response = client.newCall(requestBuilder.build()).execute()) {
             ResponseBody responseBody = response.body();
             if (responseBody != null) {
-                return responseBody.string();
+                return ScriptObject.of(switch(outputType.toUpperCase()) {
+                    case "STRING" -> responseBody.string();
+                    case "BYTES" -> responseBody.bytes();
+                    default -> throw new IllegalArgumentException("Unsupported output type: " + outputType);
+                });
             }
             return null;
         } catch (IOException e) {

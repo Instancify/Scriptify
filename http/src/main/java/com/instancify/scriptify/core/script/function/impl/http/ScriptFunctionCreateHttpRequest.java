@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Represents a function to send http request
+ * Represents a function create http request
  */
 public class ScriptFunctionCreateHttpRequest implements ScriptFunction {
 

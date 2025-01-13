@@ -7,8 +7,6 @@ import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
-import com.instancify.scriptify.api.script.security.exclude.ClassSecurityExclude;
-import com.instancify.scriptify.api.script.security.exclude.SecurityExclude;
 import com.instancify.scriptify.core.script.security.StandardSecurityManager;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
@@ -19,6 +17,10 @@ public class JsScript implements Script<Object> {
     private final ScriptSecurityManager securityManager = new StandardSecurityManager();
     private ScriptFunctionManager functionManager;
     private ScriptConstantManager constantManager;
+
+    public JsScript() {
+        context.setWrapFactory(new JsWrapFactory());
+    }
 
     @Override
     public ScriptSecurityManager getSecurityManager() {

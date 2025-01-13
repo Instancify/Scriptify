@@ -15,7 +15,7 @@ public class HttpRequest {
 
     public HttpRequest(String url, String method) {
         this.url = url;
-        this.method = method;
+        this.method = method.toUpperCase();
     }
 
     public void setBody(String body, String mediaType) {
@@ -35,7 +35,7 @@ public class HttpRequest {
             requestBuilder.addHeader(header.getKey(), header.getValue());
         }
 
-        if (method.equalsIgnoreCase("POST") || method.equalsIgnoreCase("PUT")) {
+        if (method.equals("POST") || method.equals("PUT")) {
 
             if (body != null && !body.isEmpty()) {
                 RequestBody requestBody = RequestBody.create(body, MediaType.get(mediaType));

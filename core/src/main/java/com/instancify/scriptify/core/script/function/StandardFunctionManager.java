@@ -2,8 +2,7 @@ package com.instancify.scriptify.core.script.function;
 
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
-import com.instancify.scriptify.core.script.function.impl.ScriptFunctionPrint;
-import com.instancify.scriptify.core.script.function.impl.ScriptFunctionShuffleArray;
+import com.instancify.scriptify.core.script.function.impl.util.*;
 import com.instancify.scriptify.core.script.function.impl.crypto.ScriptFunctionBase64Decode;
 import com.instancify.scriptify.core.script.function.impl.crypto.ScriptFunctionBase64Encode;
 import com.instancify.scriptify.core.script.function.impl.crypto.ScriptFunctionMD5;
@@ -51,6 +50,9 @@ public class StandardFunctionManager implements ScriptFunctionManager {
         this.register(new ScriptFunctionExecCommand());
         this.register(new ScriptFunctionEnv());
         this.register(new ScriptFunctionShuffleArray());
+        this.register(new ScriptFunctionListOf());
+        this.register(new ScriptFunctionSetOf());
+        this.register(new ScriptFunctionArrayOf());
     }
 
     @Override

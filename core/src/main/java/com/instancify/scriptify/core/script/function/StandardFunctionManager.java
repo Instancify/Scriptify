@@ -53,6 +53,8 @@ public class StandardFunctionManager implements ScriptFunctionManager {
         this.register(new ScriptFunctionListOf());
         this.register(new ScriptFunctionSetOf());
         this.register(new ScriptFunctionArrayOf());
+        this.register(new ScriptFunctionRegexPattern());
+        this.register(new ScriptFunctionRegexMatch());
     }
 
     @Override

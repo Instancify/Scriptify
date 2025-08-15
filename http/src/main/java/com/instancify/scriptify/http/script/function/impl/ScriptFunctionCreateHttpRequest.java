@@ -1,4 +1,4 @@
-package com.instancify.scriptify.core.script.function.impl.http;
+package com.instancify.scriptify.http.script.function.impl;
 
 import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
 import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
@@ -6,7 +6,7 @@ import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
-import com.instancify.scriptify.core.script.function.data.http.HttpRequest;
+import com.instancify.scriptify.http.script.function.data.HttpRequest;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

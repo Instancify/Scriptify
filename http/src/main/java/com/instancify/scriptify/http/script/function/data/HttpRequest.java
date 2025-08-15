@@ -1,4 +1,4 @@
-package com.instancify.scriptify.core.script.function.data.http;
+package com.instancify.scriptify.http.script.function.data;
 
 import com.instancify.scriptify.api.script.ScriptObject;
 import okhttp3.*;

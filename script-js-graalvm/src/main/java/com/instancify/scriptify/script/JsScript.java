@@ -8,7 +8,7 @@ import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
-import com.instancify.scriptify.core.script.security.StandardSecurityManager;
+import com.instancify.scriptify.security.StandardSecurityManager;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;
 import org.graalvm.polyglot.Value;

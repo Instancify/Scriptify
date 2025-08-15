@@ -1,4 +1,4 @@
-package com.instancify.scriptify.core.script.security;
+package com.instancify.scriptify.security;
 
 import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
 import com.instancify.scriptify.api.script.security.SecurityPathAccessor;

@@ -1,6 +1,10 @@
 # Instancify Scriptify
 Instancify Scriptify is a library to evaluate scripts written in JavaScript with ability to add global functions and variables.
 
+## What is it for?
+This library is designed to execute JavaScript scripts and has the ability to register global functions and constants.
+It also allows you to configure security for executing scripts.
+
 ## Maven
 Adding repo:
 ```xml

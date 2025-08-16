@@ -17,7 +17,7 @@ For adding a library only:
 <dependency>
     <groupId>com.instancify.scriptify</groupId>
     <artifactId>core</artifactId>
-    <version>1.3.6-SNAPSHOT</version>
+    <version>1.4.0-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -26,12 +26,12 @@ For adding a library with JS for Rhino or GraalVM:
 <dependency>
     <groupId>com.instancify.scriptify</groupId>
     <artifactId>script-js-rhino</artifactId>
-    <version>1.3.6-SNAPSHOT</version>
+    <version>1.4.0-SNAPSHOT</version>
 </dependency>
 <dependency>
     <groupId>com.instancify.scriptify</groupId>
     <artifactId>script-js-graalvm</artifactId>
-    <version>1.3.6-SNAPSHOT</version>
+    <version>1.4.0-SNAPSHOT</version>
 </dependency>
 ```
 ## Gradle
@@ -45,11 +45,11 @@ maven {
 
 For adding a library only:
 ```groovy
-implementation "com.instancify.scriptify:core:1.3.6-SNAPSHOT"
+implementation "com.instancify.scriptify:core:1.4.0-SNAPSHOT"
 ```
 
 For adding a library with JS for Rhino or GraalVM:
 ```groovy
-implementation "com.instancify.scriptify:script-js-rhino:1.3.6-SNAPSHOT"
-implementation "com.instancify.scriptify:script-js-graalvm:1.3.6-SNAPSHOT"
+implementation "com.instancify.scriptify:script-js-rhino:1.4.0-SNAPSHOT"
+implementation "com.instancify.scriptify:script-js-graalvm:1.4.0-SNAPSHOT"
 ```

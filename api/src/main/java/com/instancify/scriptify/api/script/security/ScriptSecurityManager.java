@@ -23,6 +23,13 @@ public interface ScriptSecurityManager {
     void setSecurityMode(boolean securityMode);
 
     /**
+     * Receives security file system.
+     *
+     * @return Security file system
+     */
+    SecurityFileSystem getFileSystem();
+
+    /**
      * Receives security path accessor.
      *
      * @return Security path accessor

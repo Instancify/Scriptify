@@ -12,6 +12,7 @@ public class StandardSecurityManager implements ScriptSecurityManager {
     private boolean securityMode;
     private final Set<SecurityExclude> excludes = new HashSet<>();
     private final SecurityPathAccessor pathAccessor = new SecurityPathAccessorImpl(this);
+    private final SecurityFileSystemImpl fileSystem = new SecurityFileSystemImpl(pathAccessor);
 
     @Override
     public boolean getSecurityMode() {
@@ -21,6 +22,11 @@ public class StandardSecurityManager implements ScriptSecurityManager {
     @Override
     public void setSecurityMode(boolean securityMode) {
         this.securityMode = securityMode;
+    }
+
+    @Override
+    public SecurityFileSystemImpl getFileSystem() {
+        return fileSystem;
     }
 
     @Override

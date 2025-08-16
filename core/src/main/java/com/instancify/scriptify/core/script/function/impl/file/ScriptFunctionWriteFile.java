@@ -26,7 +26,7 @@ public class ScriptFunctionWriteFile implements ScriptFunction {
         if (args.length == 2) {
             if (args[0].getValue() instanceof String filePath && args[1].getValue() instanceof String fileContent) {
                 try {
-                    return Files.writeString(script.getSecurityManager().getPathAccessor().getAccessiblePath(filePath), fileContent);
+                    return Files.writeString(script.getSecurityManager().getFileSystem().getPath(filePath), fileContent);
                 } catch (IOException e) {
                     throw new ScriptFunctionException(e);
                 }

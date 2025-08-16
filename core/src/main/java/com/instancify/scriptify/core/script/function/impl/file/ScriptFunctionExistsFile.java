@@ -25,7 +25,7 @@ public class ScriptFunctionExistsFile implements ScriptFunction {
     public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
         if (args.length == 1) {
             if (args[0].getValue() instanceof String filePath) {
-                return Files.exists(Path.of(filePath));
+                return Files.exists(script.getSecurityManager().getFileSystem().getPath(filePath));
             } else {
                 throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
             }

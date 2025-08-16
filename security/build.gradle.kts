@@ -7,6 +7,5 @@ repositories {
 }
 
 dependencies {
-    api(project(":security"))
-    api("org.mozilla:rhino:1.8.0")
+    api(project(":api"))
 }

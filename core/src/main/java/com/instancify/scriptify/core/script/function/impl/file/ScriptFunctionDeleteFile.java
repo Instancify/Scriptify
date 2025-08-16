@@ -30,14 +30,14 @@ public class ScriptFunctionDeleteFile implements ScriptFunction {
         }
 
         if (args.length == 1) {
-            return new File(filePath).delete();
+            return script.getSecurityManager().getFileSystem().getFile(filePath).delete();
         }
 
         if (!(args[1].getValue() instanceof Boolean recursive)) {
             throw new ScriptFunctionArgTypeException(Boolean.class, args[1].getType());
         }
 
-        File file = new File(filePath);
+        File file = script.getSecurityManager().getFileSystem().getFile(filePath);
         if (recursive) {
             return deleteDirectoryRecursively(file);
         } else {

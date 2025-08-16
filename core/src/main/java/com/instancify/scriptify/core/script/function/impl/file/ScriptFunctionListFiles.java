@@ -9,8 +9,8 @@ import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgum
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Represents a function to get all files in a folder
@@ -26,9 +26,9 @@ public class ScriptFunctionListFiles implements ScriptFunction {
     public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
         if (args.length == 1) {
             if (args[0].getValue() instanceof String filePath) {
-                File folder = Paths.get(filePath).toAbsolutePath().toFile();
+                File folder = script.getSecurityManager().getFileSystem().getFile(filePath);
                 if (folder.isDirectory()) {
-                    return Arrays.stream(folder.listFiles()).map(File::getAbsolutePath).toList();
+                    return Arrays.stream(Objects.requireNonNull(folder.listFiles())).map(File::getAbsolutePath).toList();
                 } else {
                     throw new ScriptFunctionException("File is not a folder");
                 }

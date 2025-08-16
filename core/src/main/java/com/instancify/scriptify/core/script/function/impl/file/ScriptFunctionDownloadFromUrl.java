@@ -11,7 +11,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 
 /**
@@ -37,11 +38,11 @@ public class ScriptFunctionDownloadFromUrl implements ScriptFunction {
             throw new ScriptFunctionArgTypeException(String.class, args[1].getType());
         }
 
-        try (InputStream in = new URL(url).openStream()) {
-            File targetPath = new File(filePath);
+        try (InputStream in = new URI(url).toURL().openStream()) {
+            File targetPath = script.getSecurityManager().getFileSystem().getFile(filePath);
             Files.copy(in, targetPath.toPath());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException | URISyntaxException e) {
+            throw new RuntimeException(e);
         }
 
         return null;

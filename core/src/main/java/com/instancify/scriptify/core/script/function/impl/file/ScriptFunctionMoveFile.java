@@ -33,7 +33,7 @@ public class ScriptFunctionMoveFile implements ScriptFunction {
             throw new ScriptFunctionArgTypeException(String.class, args[1].getType());
         }
 
-        File fileToMove = new File(originalFilePath);
-        return fileToMove.renameTo(new File(targetFilePath));
+        File fileToMove = script.getSecurityManager().getFileSystem().getFile(originalFilePath);
+        return fileToMove.renameTo(script.getSecurityManager().getFileSystem().getFile(targetFilePath));
     }
 }

@@ -27,7 +27,7 @@ public class ScriptFunctionReadFile implements ScriptFunction {
         if (args.length == 1) {
             if (args[0].getValue() instanceof String filePath) {
                 try {
-                    return Files.readString(Path.of(filePath));
+                    return Files.readString(script.getSecurityManager().getFileSystem().getPath(filePath));
                 } catch (IOException e) {
                     throw new ScriptFunctionException(e);
                 }

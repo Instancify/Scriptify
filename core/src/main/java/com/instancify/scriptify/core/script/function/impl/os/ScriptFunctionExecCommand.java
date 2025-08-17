@@ -1,11 +1,8 @@
 package com.instancify.scriptify.core.script.function.impl.os;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
-import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
-import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.Argument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedReader;
@@ -22,16 +19,10 @@ public class ScriptFunctionExecCommand implements ScriptFunction {
         return "execCommand";
     }
 
-    @Override
-    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        if (args.length != 1) {
-            throw new ScriptFunctionArgsCountException(1, args.length);
-        }
-
-        if (!(args[0].getValue() instanceof String input)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
-        }
-
+    @ExecuteAt
+    public String execute(
+            @Argument(name = "input") String input
+    ) {
         try {
             Process process = Runtime.getRuntime().exec(input);
 
@@ -49,7 +40,7 @@ public class ScriptFunctionExecCommand implements ScriptFunction {
             }
             return message.toString();
         } catch (IOException e) {
-            throw new ScriptFunctionException(e);
+            throw new RuntimeException(e);
         }
     }
 }

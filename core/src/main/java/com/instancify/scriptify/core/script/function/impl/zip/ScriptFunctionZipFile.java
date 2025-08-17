@@ -1,11 +1,10 @@
 package com.instancify.scriptify.core.script.function.impl.zip;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
-import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.Argument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
+import com.instancify.scriptify.api.script.function.annotation.Executor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -25,22 +24,15 @@ public class ScriptFunctionZipFile implements ScriptFunction {
         return "zipFile";
     }
 
-    @Override
-    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        if (args.length != 2) {
-            throw new ScriptFunctionArgsCountException(2, args.length);
-        }
-
-        if (!(args[0].getValue() instanceof String filePath)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
-        }
-        if (!(args[1].getValue() instanceof String compressedFilePath)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[1].getType());
-        }
-
+    @ExecuteAt
+    public void execute(
+            @Executor Script<?> script,
+            @Argument(name = "filePath") String filePath,
+            @Argument(name = "compressedFilePath") String compressedFilePath
+    ) {
         try {
-            File fileToZip = new File(filePath);
-            File compressedFile = new File(compressedFilePath);
+            File fileToZip = script.getSecurityManager().getFileSystem().getFile(filePath);
+            File compressedFile = script.getSecurityManager().getFileSystem().getFile(compressedFilePath);
 
             FileOutputStream fos = new FileOutputStream(compressedFile);
             ZipOutputStream zipOut = new ZipOutputStream(fos);
@@ -49,10 +41,8 @@ public class ScriptFunctionZipFile implements ScriptFunction {
             zipOut.close();
             fos.close();
         } catch (IOException e) {
-            throw new ScriptFunctionException(e);
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     private void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {

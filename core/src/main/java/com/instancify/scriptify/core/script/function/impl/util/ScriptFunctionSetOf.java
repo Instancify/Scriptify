@@ -1,13 +1,13 @@
 package com.instancify.scriptify.core.script.function.impl.util;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
-import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.Argument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a function to create a set from the passed arguments
@@ -19,8 +19,10 @@ public class ScriptFunctionSetOf implements ScriptFunction {
         return "setOf";
     }
 
-    @Override
-    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        return Arrays.stream(args).map(ScriptFunctionArgument::getValue).collect(Collectors.toUnmodifiableSet());
+    @ExecuteAt
+    public Set<?> execute(
+            @Argument(name = "args") Object... args
+    ) {
+        return new HashSet<>(Arrays.asList(args));
     }
 }

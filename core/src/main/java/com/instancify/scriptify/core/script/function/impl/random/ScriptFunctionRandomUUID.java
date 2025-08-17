@@ -1,9 +1,7 @@
 package com.instancify.scriptify.core.script.function.impl.random;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
-import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -18,8 +16,8 @@ public class ScriptFunctionRandomUUID implements ScriptFunction {
         return "randomUUID";
     }
 
-    @Override
-    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
+    @ExecuteAt
+    public String execute() {
         return UUID.randomUUID().toString();
     }
 }

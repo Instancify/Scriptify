@@ -1,11 +1,10 @@
 package com.instancify.scriptify.core.script.function.impl.zip;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
-import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.Argument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
+import com.instancify.scriptify.api.script.function.annotation.Executor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -13,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -27,36 +27,25 @@ public class ScriptFunctionSmartZipFile implements ScriptFunction {
         return "smartZipFile";
     }
 
-    @Override
-    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        if (args.length != 3) {
-            throw new ScriptFunctionArgsCountException(3, args.length);
-        }
-
-        if (!(args[0].getValue() instanceof String filesPath)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
-        }
-        if (!(args[1].getValue() instanceof String compressedFilePath)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[1].getType());
-        }
-        if (!(args[2].getValue() instanceof List<?> patterns)) {
-            throw new ScriptFunctionArgTypeException(List.class, args[2].getType());
-        }
-
+    @ExecuteAt
+    public void execute(
+            @Executor Script<?> script,
+            @Argument(name = "filesPath") String filesPath,
+            @Argument(name = "compressedFilePath") String compressedFilePath,
+            @Argument(name = "patterns") List<String> patterns
+    ) {
         try {
-            File filesToZip = new File(filesPath);
-            File compressedFile = new File(compressedFilePath);
+            File filesToZip = script.getSecurityManager().getFileSystem().getFile(filesPath);
+            File compressedFile = script.getSecurityManager().getFileSystem().getFile(compressedFilePath);
             FileOutputStream fos = new FileOutputStream(compressedFile);
             ZipOutputStream zipOut = new ZipOutputStream(fos);
 
             List<Pattern> regexPatterns = patterns.stream()
-                    .filter(String.class::isInstance)
-                    .map(String.class::cast)
                     .map(Pattern::compile)
                     .toList();
 
             if (filesToZip.isDirectory()) {
-                for (File file : filesToZip.listFiles()) {
+                for (File file : Objects.requireNonNull(filesToZip.listFiles())) {
                     String fileName = file.getName();
                     boolean matches = regexPatterns.stream().anyMatch(pattern -> pattern.matcher(fileName).matches());
 
@@ -69,10 +58,8 @@ public class ScriptFunctionSmartZipFile implements ScriptFunction {
             zipOut.close();
             fos.close();
         } catch (IOException e) {
-            throw new ScriptFunctionException(e);
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     private void zipFile(File fileToZip, String fileName, ZipOutputStream zipOut) throws IOException {

@@ -1,11 +1,8 @@
 package com.instancify.scriptify.core.script.function.impl.random;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
-import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
-import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.Argument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
@@ -20,27 +17,18 @@ public class ScriptFunctionRandomDouble implements ScriptFunction {
         return "randomDouble";
     }
 
-    @Override
-    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        Random random = new Random();
-        if (args.length > 2 || args.length < 1) throw new ScriptFunctionArgsCountException(1, args.length);
+    @ExecuteAt
+    public double execute(
+            @Argument(name = "max") Double max
+    ) {
+        return new Random().nextDouble(max);
+    }
 
-        if (args.length == 1) {
-            if (args[0].getValue() instanceof Number max) {
-                return random.nextDouble(max.doubleValue());
-            } else {
-                throw new ScriptFunctionArgTypeException(Number.class, args[0].getType());
-            }
-        }
-
-        if (args[0].getValue() instanceof Number min) {
-            if (args[1].getValue() instanceof Number max) {
-                return random.nextDouble(max.doubleValue() - min.doubleValue()) + min.doubleValue();
-            } else {
-                throw new ScriptFunctionArgTypeException(Number.class, args[1].getType());
-            }
-        } else {
-            throw new ScriptFunctionArgTypeException(Number.class, args[0].getType());
-        }
+    @ExecuteAt
+    public double execute(
+            @Argument(name = "min") Double min,
+            @Argument(name = "max") Double max
+    ) {
+        return new Random().nextDouble(min, max);
     }
 }

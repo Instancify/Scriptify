@@ -1,10 +1,8 @@
 package com.instancify.scriptify.core.script.function.impl.file;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
-import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.Argument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,20 +15,18 @@ public class ScriptFunctionJoinPath implements ScriptFunction {
         return "joinPath";
     }
 
-    @Override
-    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        String path = "";
-        for (ScriptFunctionArgument arg : args) {
-            if (arg.getValue() instanceof String segment) {
-                if (path.isEmpty()) {
-                    path += segment;
-                } else {
-                    path += '/' + segment;
-                }
+    @ExecuteAt
+    public String execute(
+            @Argument(name = "args") String... args
+    ) {
+        StringBuilder path = new StringBuilder();
+        for (String arg : args) {
+            if (path.isEmpty()) {
+                path.append(arg);
             } else {
-                throw new ScriptFunctionArgTypeException(String.class, args[1].getType());
+                path.append('/').append(arg);
             }
         }
-        return path;
+        return path.toString();
     }
 }

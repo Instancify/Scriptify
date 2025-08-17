@@ -4,7 +4,9 @@ import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 import com.instancify.scriptify.api.script.function.definition.ScriptFunctionDefinition;
 import com.instancify.scriptify.core.script.function.definition.ScriptFunctionDefinitionImpl;
+import org.jetbrains.annotations.UnmodifiableView;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,8 +15,8 @@ public class StandardFunctionManager implements ScriptFunctionManager {
     private final Map<String, ScriptFunctionDefinition> functions = new HashMap<>();
 
     @Override
-    public Map<String, ScriptFunctionDefinition> getFunctions() {
-        return functions;
+    public @UnmodifiableView Map<String, ScriptFunctionDefinition> getFunctions() {
+        return Collections.unmodifiableMap(functions);
     }
 
     @Override

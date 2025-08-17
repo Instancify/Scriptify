@@ -12,12 +12,17 @@ import java.util.List;
  */
 public interface ScriptFunctionExecutor {
 
+    /**
+     * Retrieves the executor method.
+     *
+     * @return A {@link Method}
+     */
     Method getMethod();
 
     /**
      * Retrieves the argument definitions for this executor.
      *
-     * @return a list of {@link ScriptFunctionArgumentDefinition}
+     * @return A list of {@link ScriptFunctionArgumentDefinition}
      */
     List<ScriptFunctionArgumentDefinition> getArguments();
 

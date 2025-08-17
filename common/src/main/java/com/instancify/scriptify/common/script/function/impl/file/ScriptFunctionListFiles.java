@@ -9,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -22,7 +23,7 @@ public class ScriptFunctionListFiles implements ScriptFunction {
     }
 
     @ExecuteAt
-    public Object execute(
+    public List<String> execute(
             @Executor Script<?> script,
             @Argument(name = "filePath") String filePath
     ) {

@@ -5,10 +5,12 @@ import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.ScriptObject;
 import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
-import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
+import com.instancify.scriptify.api.script.function.definition.ScriptFunctionDefinition;
 import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
-import com.instancify.scriptify.security.StandardSecurityManager;
+import com.instancify.scriptify.core.script.constant.StandardConstantManager;
+import com.instancify.scriptify.core.script.function.StandardFunctionManager;
+import com.instancify.scriptify.core.script.security.StandardSecurityManager;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;
 import org.graalvm.polyglot.Value;
@@ -16,8 +18,8 @@ import org.graalvm.polyglot.Value;
 public class JsScript implements Script<Value> {
 
     private final ScriptSecurityManager securityManager = new StandardSecurityManager();
-    private ScriptFunctionManager functionManager;
-    private ScriptConstantManager constantManager;
+    private ScriptFunctionManager functionManager = new StandardFunctionManager();
+    private ScriptConstantManager constantManager = new StandardConstantManager();
 
     @Override
     public ScriptSecurityManager getSecurityManager() {
@@ -71,8 +73,8 @@ public class JsScript implements Script<Value> {
         Value bindings = context.getBindings("js");
 
         if (functionManager != null) {
-            for (ScriptFunction function : functionManager.getFunctions().values()) {
-                bindings.putMember(function.getName(), new JsFunction(this, function));
+            for (ScriptFunctionDefinition definition : functionManager.getFunctions().values()) {
+                bindings.putMember(definition.getFunction().getName(), new JsFunction(this, definition));
             }
         }
 

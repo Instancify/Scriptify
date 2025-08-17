@@ -1,14 +1,10 @@
 package com.instancify.scriptify.http.script.function.impl;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
-import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
-import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.Argument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
 import com.instancify.scriptify.http.script.function.data.HttpRequest;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * Represents a function create http request
@@ -20,20 +16,11 @@ public class ScriptFunctionCreateHttpRequest implements ScriptFunction {
         return "createHttpRequest";
     }
 
-    @Override
-    public @Nullable Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        if (args.length != 2) {
-            throw new ScriptFunctionArgsCountException(2, args.length);
-        }
-
-        if (!(args[0].getValue() instanceof String url)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
-        }
-
-        if (!(args[1].getValue() instanceof String method)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[1].getType());
-        }
-
+    @ExecuteAt
+    public HttpRequest execute(
+            @Argument(name = "url") String url,
+            @Argument(name = "method") String method
+    ) {
         return new HttpRequest(url, method);
     }
 }

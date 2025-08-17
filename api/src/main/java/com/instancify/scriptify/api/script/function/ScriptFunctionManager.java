@@ -1,6 +1,8 @@
 package com.instancify.scriptify.api.script.function;
 
+import com.instancify.scriptify.api.script.function.definition.ScriptFunctionDefinition;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.Map;
 
@@ -14,7 +16,7 @@ public interface ScriptFunctionManager {
      *
      * @return A map where keys are function names and values are ScriptFunction instances
      */
-    Map<String, ScriptFunction> getFunctions();
+    @UnmodifiableView Map<String, ScriptFunctionDefinition> getFunctions();
 
     /**
      * Gets a specific function by its name.
@@ -22,7 +24,7 @@ public interface ScriptFunctionManager {
      * @param name The name of the function to retrieve
      * @return The ScriptFunction associated with the name, or null if not found
      */
-    default @Nullable ScriptFunction getFunction(String name) {
+    default @Nullable ScriptFunctionDefinition getFunction(String name) {
         return this.getFunctions().get(name);
     }
 

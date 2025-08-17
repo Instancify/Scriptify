@@ -1,6 +1,7 @@
 package com.instancify.scriptify.api.script.constant;
 
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public interface ScriptConstantManager {
      *
      * @return A map where keys are constant names and values are ScriptConstant instances
      */
-    Map<String, ScriptConstant> getConstants();
+    @UnmodifiableView Map<String, ScriptConstant> getConstants();
 
     /**
      * Gets a specific constant by its name.

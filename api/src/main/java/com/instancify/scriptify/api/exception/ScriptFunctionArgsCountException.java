@@ -3,6 +3,7 @@ package com.instancify.scriptify.api.exception;
 /**
  * Exception for when the count of arguments in a script function call is incorrect.
  */
+@Deprecated
 public class ScriptFunctionArgsCountException extends ScriptFunctionException {
 
     /**

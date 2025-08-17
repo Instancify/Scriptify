@@ -5,8 +5,8 @@ import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.ScriptObject;
 import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
-import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
+import com.instancify.scriptify.api.script.function.definition.ScriptFunctionDefinition;
 import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
 import com.instancify.scriptify.security.StandardSecurityManager;
 import org.graalvm.polyglot.Context;
@@ -71,8 +71,8 @@ public class JsScript implements Script<Value> {
         Value bindings = context.getBindings("js");
 
         if (functionManager != null) {
-            for (ScriptFunction function : functionManager.getFunctions().values()) {
-                bindings.putMember(function.getName(), new JsFunction(this, function));
+            for (ScriptFunctionDefinition definition : functionManager.getFunctions().values()) {
+                bindings.putMember(definition.getFunction().getName(), new JsFunction(this, definition));
             }
         }
 

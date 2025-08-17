@@ -4,8 +4,8 @@ import com.instancify.scriptify.api.exception.ScriptException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.constant.ScriptConstant;
 import com.instancify.scriptify.api.script.constant.ScriptConstantManager;
-import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
+import com.instancify.scriptify.api.script.function.definition.ScriptFunctionDefinition;
 import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
 import com.instancify.scriptify.security.StandardSecurityManager;
 import org.mozilla.javascript.Context;
@@ -58,8 +58,8 @@ public class JsScript implements Script<Object> {
         }
 
         if (functionManager != null) {
-            for (ScriptFunction function : functionManager.getFunctions().values()) {
-                scope.put(function.getName(), scope, new JsFunction(this, function));
+            for (ScriptFunctionDefinition definition : functionManager.getFunctions().values()) {
+                scope.put(definition.getFunction().getName(), scope, new JsFunction(this, definition));
             }
         }
 

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 /**
  * Exception for script function argument type mismatches.
  */
+@Deprecated
 public class ScriptFunctionArgTypeException extends ScriptFunctionException {
 
     /**

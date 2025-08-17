@@ -1,11 +1,10 @@
 package com.instancify.scriptify.core.script.function.impl.file;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
-import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.Argument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
+import com.instancify.scriptify.api.script.function.annotation.Executor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -22,21 +21,16 @@ public class ScriptFunctionListFiles implements ScriptFunction {
         return "listFiles";
     }
 
-    @Override
-    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        if (args.length == 1) {
-            if (args[0].getValue() instanceof String filePath) {
-                File folder = script.getSecurityManager().getFileSystem().getFile(filePath);
-                if (folder.isDirectory()) {
-                    return Arrays.stream(Objects.requireNonNull(folder.listFiles())).map(File::getAbsolutePath).toList();
-                } else {
-                    throw new ScriptFunctionException("File is not a folder");
-                }
-            } else {
-                throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
-            }
+    @ExecuteAt
+    public Object execute(
+            @Executor Script<?> script,
+            @Argument(name = "filePath") String filePath
+    ) {
+        File folder = script.getSecurityManager().getFileSystem().getFile(filePath);
+        if (folder.isDirectory()) {
+            return Arrays.stream(Objects.requireNonNull(folder.listFiles())).map(File::getAbsolutePath).toList();
         } else {
-            throw new ScriptFunctionArgsCountException(1, args.length);
+            throw new RuntimeException("File is not a folder");
         }
     }
 }

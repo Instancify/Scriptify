@@ -1,11 +1,10 @@
 package com.instancify.scriptify.core.script.function.impl.file;
 
-import com.instancify.scriptify.api.exception.ScriptFunctionArgTypeException;
-import com.instancify.scriptify.api.exception.ScriptFunctionArgsCountException;
-import com.instancify.scriptify.api.exception.ScriptFunctionException;
 import com.instancify.scriptify.api.script.Script;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
-import com.instancify.scriptify.api.script.function.argument.ScriptFunctionArgument;
+import com.instancify.scriptify.api.script.function.annotation.Argument;
+import com.instancify.scriptify.api.script.function.annotation.ExecuteAt;
+import com.instancify.scriptify.api.script.function.annotation.Executor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -20,25 +19,14 @@ public class ScriptFunctionDeleteFile implements ScriptFunction {
         return "deleteFile";
     }
 
-    @Override
-    public Object invoke(Script<?> script, ScriptFunctionArgument[] args) throws ScriptFunctionException {
-        if (args.length > 2 || args.length < 1) {
-            throw new ScriptFunctionArgsCountException(1, args.length);
-        }
-        if (!(args[0].getValue() instanceof String filePath)) {
-            throw new ScriptFunctionArgTypeException(String.class, args[0].getType());
-        }
-
-        if (args.length == 1) {
-            return script.getSecurityManager().getFileSystem().getFile(filePath).delete();
-        }
-
-        if (!(args[1].getValue() instanceof Boolean recursive)) {
-            throw new ScriptFunctionArgTypeException(Boolean.class, args[1].getType());
-        }
-
+    @ExecuteAt
+    public Object execute(
+            @Executor Script<?> script,
+            @Argument(name = "filePath") String filePath,
+            @Argument(name = "recursive", required = false) Boolean recursive
+    ) {
         File file = script.getSecurityManager().getFileSystem().getFile(filePath);
-        if (recursive) {
+        if (recursive != null && recursive) {
             return deleteDirectoryRecursively(file);
         } else {
             return file.delete();

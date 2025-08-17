@@ -20,7 +20,7 @@ public class ScriptFunctionMoveFile implements ScriptFunction {
     }
 
     @ExecuteAt
-    public Object execute(
+    public boolean execute(
             @Executor Script<?> script,
             @Argument(name = "original") String originalFilePath,
             @Argument(name = "target") String targetFilePath

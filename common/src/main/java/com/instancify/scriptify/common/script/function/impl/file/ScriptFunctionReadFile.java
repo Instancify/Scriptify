@@ -21,7 +21,7 @@ public class ScriptFunctionReadFile implements ScriptFunction {
     }
 
     @ExecuteAt
-    public Object execute(
+    public String execute(
             @Executor Script<?> script,
             @Argument(name = "filePath") String filePath
     ) {

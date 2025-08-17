@@ -20,7 +20,7 @@ public class ScriptFunctionExistsFile implements ScriptFunction {
     }
 
     @ExecuteAt
-    public Object execute(
+    public boolean execute(
             @Executor Script<?> script,
             @Argument(name = "filePath") String filePath
     ) {

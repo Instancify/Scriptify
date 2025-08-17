@@ -39,6 +39,7 @@ public class CommonFunctionManager extends StandardFunctionManager {
         this.register(new ScriptFunctionRandomLong());
         this.register(new ScriptFunctionRandomFloat());
         this.register(new ScriptFunctionRandomDouble());
+        this.register(new ScriptFunctionRandomBoolean());
         this.register(new ScriptFunctionMD5());
         this.register(new ScriptFunctionSHA256());
         this.register(new ScriptFunctionExecCommand());

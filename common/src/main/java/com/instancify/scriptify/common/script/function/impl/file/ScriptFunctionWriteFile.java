@@ -21,13 +21,13 @@ public class ScriptFunctionWriteFile implements ScriptFunction {
     }
 
     @ExecuteAt
-    public Object execute(
+    public String execute(
             @Executor Script<?> script,
             @Argument(name = "filePath") String filePath,
             @Argument(name = "fileContent") String fileContent
     ) {
         try {
-            return Files.writeString(script.getSecurityManager().getFileSystem().getPath(filePath), fileContent);
+            return Files.writeString(script.getSecurityManager().getFileSystem().getPath(filePath), fileContent).toString();
         } catch (IOException e) {
             throw new RuntimeException(e);
 

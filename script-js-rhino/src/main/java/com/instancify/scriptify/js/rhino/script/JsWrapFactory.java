@@ -1,4 +1,4 @@
-package com.instancify.scriptify.script;
+package com.instancify.scriptify.js.rhino.script;
 
 import com.instancify.scriptify.api.script.ScriptObject;
 import org.mozilla.javascript.Context;

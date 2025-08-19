@@ -1,4 +1,4 @@
-package com.instancify.scriptify.script;
+package com.instancify.scriptify.js.graalvm.script;
 
 import com.instancify.scriptify.api.exception.ScriptException;
 import com.instancify.scriptify.api.script.Script;

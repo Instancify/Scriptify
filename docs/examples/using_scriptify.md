@@ -12,9 +12,9 @@ implementation "com.instancify.scriptify:script-js-rhino:1.3.0-SNAPSHOT"
 ```
 ___
 
-Running the script:
+Running the script (GraalVM):
 ```java
-import com.instancify.scriptify.script.JsScript;
+import com.instancify.scriptify.js.graalvm.script.JsScript;
 import com.instancify.scriptify.core.script.constant.StandardConstantManager;
 import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 import com.instancify.scriptify.api.exception.ScriptException;

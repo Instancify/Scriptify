@@ -3,16 +3,37 @@ package com.instancify.scriptify.core.script.function;
 import com.instancify.scriptify.api.script.function.ScriptFunction;
 import com.instancify.scriptify.api.script.function.ScriptFunctionManager;
 import com.instancify.scriptify.api.script.function.definition.ScriptFunctionDefinition;
-import com.instancify.scriptify.core.script.function.definition.ScriptFunctionDefinitionImpl;
+import com.instancify.scriptify.api.script.function.definition.factory.ScriptFunctionDefinitionFactory;
+import com.instancify.scriptify.core.script.function.definition.factory.StandardFunctionDefinitionFactory;
 import org.jetbrains.annotations.UnmodifiableView;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class StandardFunctionManager implements ScriptFunctionManager {
 
     private final Map<String, ScriptFunctionDefinition> functions = new HashMap<>();
+    private ScriptFunctionDefinitionFactory functionDefinitionFactory;
+
+    public StandardFunctionManager() {
+        this(new StandardFunctionDefinitionFactory());
+    }
+
+    public StandardFunctionManager(ScriptFunctionDefinitionFactory functionDefinitionFactory) {
+        this.setFunctionDefinitionFactory(functionDefinitionFactory);
+    }
+
+    @Override
+    public ScriptFunctionDefinitionFactory getFunctionDefinitionFactory() {
+        return functionDefinitionFactory;
+    }
+
+    @Override
+    public void setFunctionDefinitionFactory(ScriptFunctionDefinitionFactory functionDefinitionFactory) {
+        this.functionDefinitionFactory = Objects.requireNonNull(functionDefinitionFactory, "functionDefinitionFactory cannot be null");
+    }
 
     @Override
     public @UnmodifiableView Map<String, ScriptFunctionDefinition> getFunctions() {
@@ -21,8 +42,13 @@ public class StandardFunctionManager implements ScriptFunctionManager {
 
     @Override
     public void register(ScriptFunction function) {
+        Objects.requireNonNull(function, "function cannot be null");
         if (!functions.containsKey(function.getName())) {
-            functions.put(function.getName(), new ScriptFunctionDefinitionImpl(function));
+            ScriptFunctionDefinition definition = functionDefinitionFactory.create(function);
+            if (definition == null) {
+                throw new UnsupportedOperationException("Function definition factory has not created definition");
+            }
+            functions.put(function.getName(), definition);
         } else {
             throw new IllegalStateException("The function with name '" + function.getName() + "' already exists");
         }

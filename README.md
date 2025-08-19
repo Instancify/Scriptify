@@ -1,5 +1,5 @@
-# Instancify Scriptify
-Instancify Scriptify is a library to evaluate scripts written in JavaScript with ability to add global functions and variables.
+# Scriptify
+Scriptify is a library to evaluate scripts written in JavaScript with ability to add global functions and variables.
 
 ## What is it for?
 This library is designed to execute JavaScript scripts and has the ability to register global functions and constants.
@@ -21,7 +21,7 @@ For adding a library only:
 <dependency>
     <groupId>com.instancify.scriptify</groupId>
     <artifactId>core</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <version>1.4.4-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -30,12 +30,12 @@ For adding a library with JS for Rhino or GraalVM:
 <dependency>
     <groupId>com.instancify.scriptify</groupId>
     <artifactId>script-js-rhino</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <version>1.4.4-SNAPSHOT</version>
 </dependency>
 <dependency>
     <groupId>com.instancify.scriptify</groupId>
     <artifactId>script-js-graalvm</artifactId>
-    <version>1.4.1-SNAPSHOT</version>
+    <version>1.4.4-SNAPSHOT</version>
 </dependency>
 ```
 ## Gradle
@@ -49,11 +49,11 @@ maven {
 
 For adding a library only:
 ```groovy
-implementation "com.instancify.scriptify:core:1.4.1-SNAPSHOT"
+implementation "com.instancify.scriptify:core:1.4.4-SNAPSHOT"
 ```
 
 For adding a library with JS for Rhino or GraalVM:
 ```groovy
-implementation "com.instancify.scriptify:script-js-rhino:1.4.1-SNAPSHOT"
-implementation "com.instancify.scriptify:script-js-graalvm:1.4.1-SNAPSHOT"
+implementation "com.instancify.scriptify:script-js-rhino:1.4.4-SNAPSHOT"
+implementation "com.instancify.scriptify:script-js-graalvm:1.4.4-SNAPSHOT"
 ```

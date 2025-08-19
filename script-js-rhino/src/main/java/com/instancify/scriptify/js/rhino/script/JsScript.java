@@ -13,12 +13,16 @@ import com.instancify.scriptify.core.script.security.StandardSecurityManager;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ScriptableObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JsScript implements Script<Object> {
 
     private final Context context = Context.enter();
     private final ScriptSecurityManager securityManager = new StandardSecurityManager();
     private ScriptFunctionManager functionManager = new StandardFunctionManager();
     private ScriptConstantManager constantManager = new StandardConstantManager();
+    private final List<String> extraScript = new ArrayList<>();
 
     public JsScript() {
         context.setWrapFactory(new JsWrapFactory());
@@ -50,6 +54,11 @@ public class JsScript implements Script<Object> {
     }
 
     @Override
+    public void addExtraScript(String script) {
+        this.extraScript.add(script);
+    }
+
+    @Override
     public Object eval(String script) throws ScriptException {
         ScriptableObject scope = context.initStandardObjects();
 
@@ -71,8 +80,15 @@ public class JsScript implements Script<Object> {
             }
         }
 
+        // Building full script including extra script code
+        StringBuilder fullScript = new StringBuilder();
+        for (String extra : extraScript) {
+            fullScript.append(extra).append("\n");
+        }
+        fullScript.append(script);
+
         try {
-            return context.evaluateString(scope, script, null, 1, null);
+            return context.evaluateString(scope, fullScript.toString(), null, 1, null);
         } catch (Exception e) {
             throw new ScriptException(e);
         } finally {

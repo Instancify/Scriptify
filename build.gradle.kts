@@ -12,7 +12,7 @@ java {
 
 allprojects {
     group = "com.instancify.scriptify"
-    version = "1.4.3-SNAPSHOT"
+    version = "1.4.4-SNAPSHOT"
 }
 
 subprojects {

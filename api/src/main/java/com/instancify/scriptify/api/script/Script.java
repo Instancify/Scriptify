@@ -14,6 +14,14 @@ import com.instancify.scriptify.api.script.security.ScriptSecurityManager;
 public interface Script<T> {
 
     /**
+     * Retrieves the security manager associated with this script.
+     *
+     * @return The ScriptSecurityManager for this script
+     * @see ScriptSecurityManager
+     */
+    ScriptSecurityManager getSecurityManager();
+
+    /**
      * Retrieves the function manager associated with this script.
      *
      * @return The ScriptFunctionManager for this script
@@ -46,12 +54,11 @@ public interface Script<T> {
     void setConstantManager(ScriptConstantManager constantManager);
 
     /**
-     * Retrieves the security manager associated with this script.
+     * Add an extra script on top of the whole script.
      *
-     * @return The ScriptSecurityManager for this script
-     * @see ScriptSecurityManager
+     * @param script Extra script
      */
-    ScriptSecurityManager getSecurityManager();
+    void addExtraScript(String script);
 
     /**
      * Evaluates and executes this script.

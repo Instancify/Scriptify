@@ -15,11 +15,20 @@ import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;
 import org.graalvm.polyglot.Value;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JsScript implements Script<Value> {
 
     private final ScriptSecurityManager securityManager = new StandardSecurityManager();
     private ScriptFunctionManager functionManager = new StandardFunctionManager();
     private ScriptConstantManager constantManager = new StandardConstantManager();
+    private final List<String> extraScript = new ArrayList<>();
+
+    @Override
+    public ScriptConstantManager getConstantManager() {
+        return constantManager;
+    }
 
     @Override
     public ScriptSecurityManager getSecurityManager() {
@@ -37,13 +46,13 @@ public class JsScript implements Script<Value> {
     }
 
     @Override
-    public ScriptConstantManager getConstantManager() {
-        return constantManager;
+    public void setConstantManager(ScriptConstantManager constantManager) {
+        this.constantManager = constantManager;
     }
 
     @Override
-    public void setConstantManager(ScriptConstantManager constantManager) {
-        this.constantManager = constantManager;
+    public void addExtraScript(String script) {
+        this.extraScript.add(script);
     }
 
     @Override
@@ -84,8 +93,15 @@ public class JsScript implements Script<Value> {
             }
         }
 
+        // Building full script including extra script code
+        StringBuilder fullScript = new StringBuilder();
+        for (String extra : extraScript) {
+            fullScript.append(extra).append("\n");
+        }
+        fullScript.append(script);
+
         try {
-            return context.eval("js", script);
+            return context.eval("js", fullScript.toString());
         } catch (Exception e) {
             throw new ScriptException(e);
         } finally {

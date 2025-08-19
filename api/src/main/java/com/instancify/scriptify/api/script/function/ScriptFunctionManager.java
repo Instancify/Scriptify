@@ -1,6 +1,7 @@
 package com.instancify.scriptify.api.script.function;
 
 import com.instancify.scriptify.api.script.function.definition.ScriptFunctionDefinition;
+import com.instancify.scriptify.api.script.function.definition.factory.ScriptFunctionDefinitionFactory;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.UnmodifiableView;
 
@@ -10,6 +11,20 @@ import java.util.Map;
  * Manages script functions, providing registration and retrieval capabilities.
  */
 public interface ScriptFunctionManager {
+
+    /**
+     * Retrieves function definition factory.
+     *
+     * @return ScriptFunctionDefinitionFactory
+     */
+    ScriptFunctionDefinitionFactory getFunctionDefinitionFactory();
+
+    /**
+     * Set the function definition factory.
+     *
+     * @param factory ScriptFunctionDefinitionFactory
+     */
+    void setFunctionDefinitionFactory(ScriptFunctionDefinitionFactory factory);
 
     /**
      * Retrieves all registered functions.

@@ -7,6 +7,7 @@ import org.jetbrains.annotations.UnmodifiableView;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class StandardConstantManager implements ScriptConstantManager {
 
@@ -19,6 +20,7 @@ public class StandardConstantManager implements ScriptConstantManager {
 
     @Override
     public void register(ScriptConstant constant) {
+        Objects.requireNonNull(constant, "constant cannot be null");
         if (!constants.containsKey(constant.getName())) {
             constants.put(constant.getName(), constant);
         } else {

@@ -1,5 +1,6 @@
 package com.instancify.scriptify.common.script.function;
 
+import com.instancify.scriptify.api.script.function.definition.factory.ScriptFunctionDefinitionFactory;
 import com.instancify.scriptify.common.script.function.impl.crypto.ScriptFunctionBase64Decode;
 import com.instancify.scriptify.common.script.function.impl.crypto.ScriptFunctionBase64Encode;
 import com.instancify.scriptify.common.script.function.impl.crypto.ScriptFunctionMD5;
@@ -18,6 +19,15 @@ import com.instancify.scriptify.core.script.function.StandardFunctionManager;
 public class CommonFunctionManager extends StandardFunctionManager {
 
     public CommonFunctionManager() {
+        this.init();
+    }
+
+    public CommonFunctionManager(ScriptFunctionDefinitionFactory functionDefinitionFactory) {
+        super(functionDefinitionFactory);
+        this.init();
+    }
+
+    private void init() {
         this.register(new ScriptFunctionPrint());
         this.register(new ScriptFunctionExistsFile());
         this.register(new ScriptFunctionDeleteFile());

@@ -15,6 +15,7 @@ import org.mozilla.javascript.ScriptableObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class JsScript implements Script<Object> {
 
@@ -40,7 +41,7 @@ public class JsScript implements Script<Object> {
 
     @Override
     public void setFunctionManager(ScriptFunctionManager functionManager) {
-        this.functionManager = functionManager;
+        this.functionManager = Objects.requireNonNull(functionManager, "functionManager cannot be null");
     }
 
     @Override
@@ -50,7 +51,7 @@ public class JsScript implements Script<Object> {
 
     @Override
     public void setConstantManager(ScriptConstantManager constantManager) {
-        this.constantManager = constantManager;
+        this.constantManager = Objects.requireNonNull(constantManager, "constantManager cannot be null");
     }
 
     @Override
@@ -68,16 +69,12 @@ public class JsScript implements Script<Object> {
             context.setClassShutter(new JsSecurityClassAccessor(securityManager.getExcludes()));
         }
 
-        if (functionManager != null) {
-            for (ScriptFunctionDefinition definition : functionManager.getFunctions().values()) {
-                scope.put(definition.getFunction().getName(), scope, new JsFunction(this, definition));
-            }
+        for (ScriptFunctionDefinition definition : functionManager.getFunctions().values()) {
+            scope.put(definition.getFunction().getName(), scope, new JsFunction(this, definition));
         }
 
-        if (constantManager != null) {
-            for (ScriptConstant constant : constantManager.getConstants().values()) {
-                ScriptableObject.putConstProperty(scope, constant.getName(), constant.getValue());
-            }
+        for (ScriptConstant constant : constantManager.getConstants().values()) {
+            ScriptableObject.putConstProperty(scope, constant.getName(), constant.getValue());
         }
 
         // Building full script including extra script code

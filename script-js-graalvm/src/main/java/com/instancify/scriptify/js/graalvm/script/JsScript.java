@@ -17,6 +17,7 @@ import org.graalvm.polyglot.Value;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class JsScript implements Script<Value> {
 
@@ -42,12 +43,12 @@ public class JsScript implements Script<Value> {
 
     @Override
     public void setFunctionManager(ScriptFunctionManager functionManager) {
-        this.functionManager = functionManager;
+        this.functionManager = Objects.requireNonNull(functionManager, "functionManager cannot be null");
     }
 
     @Override
     public void setConstantManager(ScriptConstantManager constantManager) {
-        this.constantManager = constantManager;
+        this.constantManager = Objects.requireNonNull(constantManager, "constantManager cannot be null");
     }
 
     @Override
@@ -81,16 +82,12 @@ public class JsScript implements Script<Value> {
 
         Value bindings = context.getBindings("js");
 
-        if (functionManager != null) {
-            for (ScriptFunctionDefinition definition : functionManager.getFunctions().values()) {
-                bindings.putMember(definition.getFunction().getName(), new JsFunction(this, definition));
-            }
+        for (ScriptFunctionDefinition definition : functionManager.getFunctions().values()) {
+            bindings.putMember(definition.getFunction().getName(), new JsFunction(this, definition));
         }
 
-        if (constantManager != null) {
-            for (ScriptConstant constant : constantManager.getConstants().values()) {
-                bindings.putMember(constant.getName(), constant.getValue());
-            }
+        for (ScriptConstant constant : constantManager.getConstants().values()) {
+            bindings.putMember(constant.getName(), constant.getValue());
         }
 
         // Building full script including extra script code

@@ -5,6 +5,11 @@ Scriptify is a library to evaluate scripts written in JavaScript with ability to
 This library is designed to execute JavaScript scripts and has the ability to register global functions and constants.
 It also allows you to configure security for executing scripts.
 
+## Other scripts support
+- [TypeScript](https://github.com/Instancify/Scriptify-TypeScript) - TS support using swc4j
+- [TypeScript Declaration Generator](https://github.com/Instancify/Scriptify-DTS-Generator) - Declaration generator for JS or TS
+- [Kotlin Script](https://github.com/Instancify/Scriptify-Kotlin-Script) - Kotlin Script support
+
 ## Maven
 Adding repo:
 ```xml
